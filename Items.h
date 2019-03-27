@@ -9,7 +9,7 @@ class Items{
 
 public: 
     Items(int x, int y);
-    virtual void useItem(Player &p);
+    virtual void useItem(Player &p) = 0; 
 };
 
 #endif

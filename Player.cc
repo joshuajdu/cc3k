@@ -3,19 +3,16 @@
 
 using namespace std;
 
-
-Player::Player()
-{
-    //ctor
-}
+Player::Player(int hp = 140, int attack = 20, int defence = 20, string race = "Human"): 
+	       hp{hp}, attack{attack}, defence{defence}, race{race}, barrier_suit{false}, compass{false} {}
 
 Player::~Player()
 {
     //dtor
 }
 
-int Player::get_hp(){
-    return hp;
+int& Player::get_hp(){
+    return &hp;
 }
 
 void Player::Move(string direction){

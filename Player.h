@@ -7,9 +7,8 @@ using namespace std;
 
 class Player
 {
-
     public:
-        Player();
+        Player(int hp, int attack, int defence);
         ~Player();
 
         void Move(string direction);
@@ -18,7 +17,7 @@ class Player
         //virtual void pickupTreasure(const Treasure &treasure) = 0;
         //virtual void usePotion(const Potion &potion) = 0;
 
-        int get_hp();
+        int& get_hp();
 
     protected:
         int hp;

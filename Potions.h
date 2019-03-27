@@ -6,41 +6,41 @@ class Potions: public Items{
 
 public:
     Potions(std::string name);
-    virtual useItem(Player &p);
+    virtual void useItem(Player &p) = 0;
 };
 
 class RH: public Potions{
 public:
     RH();
-    useItem(Player &p);
+    void useItem(Player &p);
 };
 
 class BA: public Potions{
 public:
     BA();
-    useItem(Player &p);
+    void useItem(Player &p);
 };
 
 class BD: public Potions{
 public:
     BD();
-    useItem(Player &p);
+    void useItem(Player &p);
 };
 
 class PH: public Potions{
 public:
     PH();
-    useItem(Player &p);
+    void useItem(Player &p);
 };
 
 class WA: public Potions{
 public:
     WA();
-    useItem(Player &p);
+    void useItem(Player &p);
 };
 
 class WD: public Potions{
 public:
     WD();
-    useItem(Player &p);
+    void useItem(Player &p);
 };
