@@ -4,7 +4,7 @@
 struct Posn{
     int x;
     int y;
-    Posn(int x, int y): x{x}, y{y} {}
+    Posn(int x, int y);
 };
 
 #endif
