@@ -8,7 +8,7 @@ class Items{
     Posn p;
 
 public: 
-    Items(int x, int y);
+    Items(int x=0, int y=0);
     virtual void useItem(Player &p) = 0; 
 };
 

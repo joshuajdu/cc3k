@@ -1,7 +1,8 @@
 #include <iostream>
 #include "Player.h"
-#include "Human.h"
+#include "Potions.h"
 #include "Items.h"
+#include "Posn.h"
 
 using namespace std;
 

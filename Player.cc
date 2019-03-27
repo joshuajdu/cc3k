@@ -3,16 +3,37 @@
 
 using namespace std;
 
-Player::Player(int hp = 140, int attack = 20, int defence = 20, string race = "Human"): 
-	       hp{hp}, attack{attack}, defence{defence}, race{race}, barrier_suit{false}, compass{false} {}
+Player::Player(int hp = 140, int atk = 20, int def = 20, string race = "Human"): 
+	       maxhp{hp}, hp{hp}, baseatk{atk}, atk{atk}, basedef{def}, def{def}, 
+               race{race}, barrier_suit{false}, compass{false} {}
 
 Player::~Player()
 {
     //dtor
 }
 
-int& Player::get_hp(){
+int Player::get_maxhp(){
+    return maxhp;
+}
+
+int* Player::get_hp(){
     return &hp;
+}
+
+int Player::get_baseatk(){
+    return baseatk;
+}
+
+int* Player::get_atk(){
+    return &atk;
+}
+
+int Player::get_basedef(){
+    return basedef;
+}
+
+int* Player::get_def(){
+    return &def;
 }
 
 void Player::Move(string direction){
