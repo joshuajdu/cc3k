@@ -6,10 +6,11 @@
 #include <iostream>
 
 #include "Posn.h"
-#include "Player.h"
+//#include "Player.h"
 
 using namespace std;
 
+class Player;
 
 class Enemy
 {
@@ -22,6 +23,7 @@ class Enemy
         bool playerInRange(Player &p);
         string get_race();
         int *get_hp();
+        int* get_atk();
 
     protected:
 
