@@ -4,9 +4,9 @@
 
 using namespace std;
 
-Potion::Potion(string name): name{name} {}
+Potion::Potion(int x, int y, string name): Item(x, y, name) {}
 
-RH::RH(): Potion("RH") {}
+RH::RH(int x, int y): Potion(x, y, "0") {}
 
 void RH::useItem(Player &p){
     int* hp = p.get_hp();
@@ -14,19 +14,19 @@ void RH::useItem(Player &p){
     else *hp = *hp + 10;
 }
 
-BA::BA(): Potion("BA") {}
+BA::BA(int x, int y): Potion(x, y, "1") {}
 
 void BA::useItem(Player &p){
     *p.get_atk() = *p.get_atk() + 5;
 }
 
-BD::BD(): Potion("BD") {}
+BD::BD(int x, int y): Potion(x, y, "2") {}
 
 void BD::useItem(Player &p){
     *p.get_def() = *p.get_def() + 5;
 }
 
-PH::PH(): Potion("PH") {}
+PH::PH(int x, int y): Potion(x, y, "3") {}
 
 void PH::useItem(Player &p){
     int* hp = p.get_hp();
@@ -34,7 +34,7 @@ void PH::useItem(Player &p){
     else *hp = *hp - 10;
 }
 
-WA::WA(): Potion("WA") {}
+WA::WA(int x, int y): Potion(x, y, "4") {}
 
 void WA::useItem(Player &p){
     int* atk = p.get_atk();
@@ -42,7 +42,7 @@ void WA::useItem(Player &p){
     else *atk = *atk - 5;
 }
 
-WD::WD(): Potion("WD") {}
+WD::WD(int x, int y): Potion(x, y, "5") {}
 
 void WD::useItem(Player &p){
     int* def = p.get_def();
