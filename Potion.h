@@ -1,3 +1,5 @@
+#ifndef POTION_H
+#define POTION_H
 #include "Item.h"
 #include "Player.h"
 
@@ -44,3 +46,4 @@ public:
     WD();
     void useItem(Player &p);
 };
+#endif
