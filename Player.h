@@ -23,6 +23,8 @@ class Player
 	int* get_atk();
 	int get_basedef();
 	int* get_def();
+	int* get_gold();
+	void switch_barrier();
 
     protected:
 	int maxhp;

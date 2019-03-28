@@ -36,6 +36,14 @@ int* Player::get_def(){
     return &def;
 }
 
+int* Player::get_gold(){
+    return &gold;
+}
+
+void Player::switch_barrier(){
+    barrier_suit = true;
+}
+
 void Player::Move(string direction){
     if (direction == "no"){
 

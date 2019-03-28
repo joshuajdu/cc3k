@@ -5,12 +5,14 @@
 
 class Treasure: public Item{
     int goldVal;
-Public:
+public:
+    Treasure(int x, int y, int goldVal);
     virtual void useItem(Player &p);
 };
 
 class BarrierSuit: public Treasure{
-Public:
+public:
+    BarrierSuit(int x, int y);
     void useItem(Player &p);
 };
 #endif
