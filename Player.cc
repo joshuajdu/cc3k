@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Player::Player(int hp = 140, int atk = 20, int def = 20, string race = "Human"): 
+Player::Player(int hp, int atk, int def, string race): 
 	       maxhp{hp}, hp{hp}, baseatk{atk}, atk{atk}, basedef{def}, def{def}, 
                race{race}, barrier_suit{false}, compass{false} {}
 

@@ -8,7 +8,7 @@ using namespace std;
 class Player
 {
     public:
-        Player(int hp, int attack, int defence, string race);
+        Player(int hp=140, int attack=20, int defence=20, string race="Human");
         ~Player();
 
         void Move(string direction);
