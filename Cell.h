@@ -16,16 +16,21 @@ struct Occupier {
 class Cell {
     private:
         cellType cellT;
-        occupant occ;
+        Occupier occ = {false, nullptr, nullptr, nullptr};
         Posn pos;
     public:
         Cell(Posn p, cellType c);
-        Cell(Posn p, cellType c, string obj);
+        Cell(Posn p, cellType c, Player &pl);
+        Cell(Posn p, cellType c, Enemy &e);
+        Cell(Posn p, cellType c, Item &i);
         bool occupied();
-        occupant occupiedType();
+        Occupier getOccupier();
         cellType type();
         Item item();
         void print();
+        void addOccupant(Player &p);
+        void addOccupant(Enemy &e);
+        void addOccupant(Item &i);
         void transfer(Cell &c);
 };
 
