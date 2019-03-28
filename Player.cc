@@ -1,6 +1,7 @@
 #include <string>
 #include <stdlib.h>
 #include <iostream>
+#include <math.h>
 #include "Player.h"
 #include "Posn.h"
 #include "Enemy.h"
@@ -73,8 +74,21 @@ void Player::Position(){
 }
 
 
-void Player::CalculateDamage(Enemy &enemy){
+void Player::Damage(Enemy &e){
+    //ceiling ((100/100+ def(defender)) * atk (attacker))
 
+    double dmg = 100.0/(100+def) * (*e.get_atk());
+    dmg = ceil(dmg);
+
+    int x = (int)dmg;
+
+    hp -= x;
+    if (hp < 0){
+        hp = 0;
+    }
+
+    cout << "Attack: " << (*e.get_atk()) << " Defence: " << def << endl;
+    cout << "Damage done:" << dmg << endl;
 }
 
 
