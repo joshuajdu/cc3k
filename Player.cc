@@ -35,6 +35,14 @@ int* Player::get_def(){
     return &def;
 }
 
+int* Player::get_gold(){
+    return &gold;
+}
+
+void Player::switch_barrier(){
+    barrier_suit = true;
+}
+
 void Player::Move(string direction){
     if (direction == "no"){
         p.y++;
@@ -99,6 +107,5 @@ Dwarf::Dwarf(): Player(100, 20, 30, "Dwarf") {}
 Elf::Elf(): Player(140,20,10,"Elf") {}
 
 Orc::Orc(): Player(180,30,25,"Orc"){}
-
 
 
