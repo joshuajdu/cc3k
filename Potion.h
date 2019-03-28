@@ -4,46 +4,45 @@
 #include "Player.h"
 
 class Potion: public Item{
-    std::string name;
 
 public:
-    Potion(std::string name);
+    Potion(int x, int y, std::string name);
     virtual void useItem(Player &p) = 0;
 };
 
 class RH: public Potion{
 public:
-    RH();
+    RH(int x, int y);
     void useItem(Player &p);
 };
 
 class BA: public Potion{
 public:
-    BA();
+    BA(int x, int y);
     void useItem(Player &p);
 };
 
 class BD: public Potion{
 public:
-    BD();
+    BD(int x, int y);
     void useItem(Player &p);
 };
 
 class PH: public Potion{
 public:
-    PH();
+    PH(int x, int y);
     void useItem(Player &p);
 };
 
 class WA: public Potion{
 public:
-    WA();
+    WA(int x, int y);
     void useItem(Player &p);
 };
 
 class WD: public Potion{
 public:
-    WD();
+    WD(int x, int y);
     void useItem(Player &p);
 };
 #endif
