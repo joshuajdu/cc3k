@@ -12,6 +12,7 @@ public:
     Item(int x=0, int y=0, string name = "");
     std::string getName();
     Posn getPosn();
+    void setName(std::string name);
     virtual void useItem(Player &p) = 0; 
 };
 
