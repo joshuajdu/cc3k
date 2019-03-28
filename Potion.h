@@ -1,45 +1,45 @@
-#include "Items.h"
+#include "Item.h"
 #include "Player.h"
 
-class Potions: public Items{
+class Potion: public Item{
     std::string name;
 
 public:
-    Potions(std::string name);
+    Potion(std::string name);
     virtual void useItem(Player &p) = 0;
 };
 
-class RH: public Potions{
+class RH: public Potion{
 public:
     RH();
     void useItem(Player &p);
 };
 
-class BA: public Potions{
+class BA: public Potion{
 public:
     BA();
     void useItem(Player &p);
 };
 
-class BD: public Potions{
+class BD: public Potion{
 public:
     BD();
     void useItem(Player &p);
 };
 
-class PH: public Potions{
+class PH: public Potion{
 public:
     PH();
     void useItem(Player &p);
 };
 
-class WA: public Potions{
+class WA: public Potion{
 public:
     WA();
     void useItem(Player &p);
 };
 
-class WD: public Potions{
+class WD: public Potion{
 public:
     WD();
     void useItem(Player &p);
