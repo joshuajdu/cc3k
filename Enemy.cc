@@ -1,6 +1,7 @@
 #include <string>
 #include <stdlib.h>
 #include <iostream>
+#include <math.h>
 #include "Enemy.h"
 #include "Player.h"
 
@@ -16,14 +17,31 @@ string Enemy::get_race(){
 int *Enemy::get_hp(){
     return &hp;
 }
+int *Enemy::get_atk(){
+    return &atk;
+}
 
 void Enemy::Damage(Player &p){
     //ceiling ((100/100+ def(defender)) * atk (attacker))
-    //double dmg = 100/(100+def) * (*p.get_atk());
+
+    double dmg = 100.0/(100+def) * (*p.get_atk());
+    dmg = ceil(dmg);
+
+    int x = (int)dmg;
+
+    hp -= x;
+    if (hp < 0){
+        hp = 0;
+    }
+
+    cout << "Attack: " << (*p.get_atk()) << " Defence: " << def << endl;
+    cout << "Damage done:" << dmg << endl;
 
 }
 
 bool Enemy::playerInRange(Player &p){
+
+
     return true;
 }
 
