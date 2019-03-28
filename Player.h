@@ -4,10 +4,12 @@
 #include <string>
 #include <stdlib.h>
 #include <iostream>
-#include "Enemy.h"
+//#include "Enemy.h"
 #include "Posn.h"
 
 using namespace std;
+
+class Enemy;
 
 class Player
 {
@@ -15,7 +17,7 @@ class Player
         Player(int hp = 140, int attack = 20, int defence = 20, string race = "Human");
 
         void Move(string direction);
-        void CalculateDamage(Enemy &enemy);
+        void Damage(Enemy &e);
         //void pickupItem(const Item &item);
         //virtual void pickupTreasure(const Treasure &treasure) = 0;
         //virtual void usePotion(const Potion &potion) = 0;
@@ -26,6 +28,8 @@ class Player
         int* get_atk();
         int get_basedef();
         int* get_def();
+        int* get_gold();
+        void switch_barrier();
 
         string get_race();
         void Position();
