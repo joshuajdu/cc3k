@@ -1,0 +1,6 @@
+FILE INPUT INTO VECTOR OF CELLS
+
+>> CREATE 5 FLOORS WITH THE SAVED PROPERTIES AND ITEMS
+
+(possibly create vector of posn's and item/gold type to add to cells via constructors every floor iteration)
+
