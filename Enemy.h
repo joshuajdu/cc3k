@@ -92,7 +92,7 @@ class Merchant : public Enemy{
 
     protected:
 
-        bool aggressive;
+        static bool aggressive;
 
     private:
 };

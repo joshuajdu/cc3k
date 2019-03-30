@@ -55,7 +55,9 @@ Troll::Troll() : Enemy(120,25,15,"Troll"){}
 
 Phoenix::Phoenix() : Enemy(50,35,20,"Phoenix"){}
 
-Merchant::Merchant() : Enemy(30,70,5,"Merchant"){aggressive = false;}
+Merchant::Merchant() : Enemy(30,70,5,"Merchant"){}
+
+bool Merchant::aggressive = false;
 
 void Merchant::ChangeAggro(){
     aggressive = true;
