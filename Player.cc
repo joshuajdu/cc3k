@@ -10,7 +10,7 @@ using namespace std;
 
 Player::Player(int hp, int atk, int def, string race):
 	       maxhp{hp}, hp{hp}, baseatk{atk}, atk{atk}, basedef{def}, def{def},
-               race{race}, barrier_suit{false}, compass{false} {}
+               race{race}, gold{0}, barrier_suit{false}, compass{false} {}
 
 string Player::get_race(){
     return race;
@@ -37,6 +37,10 @@ int* Player::get_def(){
 
 int* Player::get_gold(){
     return &gold;
+}
+
+bool Player::get_barriersuit(){
+    return barrier_suit;
 }
 
 void Player::switch_barrier(){
