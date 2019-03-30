@@ -8,7 +8,15 @@ Treasure::Treasure(int x, int y, int goldVal): Item(x, y, "G"), goldVal{goldVal}
 
 void Treasure::useItem(Player &p){
     int* gold = p.get_gold();
-    (*gold) = (*gold) + goldVal;
+    if (p.get_race() == "Orc"){
+	(*gold) = (*gold) + (int)goldVal*0.5;
+    }
+    else if (p.get_race() == "Dwarf"){
+	(*gold) = (*gold) + goldVal*2;
+    }
+    else{
+    	(*gold) = (*gold) + goldVal;
+    }
 }
 
 BarrierSuit::BarrierSuit(int x, int y): Treasure(x, y, 0) {}
