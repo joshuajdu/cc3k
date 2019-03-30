@@ -29,21 +29,22 @@ class Player
         int get_basedef();
         int* get_def();
         int* get_gold();
+        bool get_barriersuit();
         void switch_barrier();
 
         string get_race();
         void Position();
 
     protected:
-        int hp;
-        int atk;
-        int def;
         int maxhp;
+        int hp;
         int baseatk;
+        int atk;
         int basedef;
-        int gold;
-        posn p = {0,0};
+        int def;
         string race;
+        int gold;
+        Posn p = {0,0};
         bool barrier_suit;
         bool compass;
 
