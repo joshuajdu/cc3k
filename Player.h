@@ -14,7 +14,7 @@ class Enemy;
 class Player
 {
     public:
-        Player(int hp = 140, int attack = 20, int defence = 20, string race = "Human");
+        Player(int hp = 140, int attack = 20, int defence = 20, string race = "Human", int x = 0, int y = 0);
 
         void Move(string direction);
         void Damage(Enemy &e);
@@ -33,6 +33,7 @@ class Player
         void switch_barrier();
 
         string get_race();
+        Posn getPosn();
         void Position();
 
     protected:
@@ -44,7 +45,7 @@ class Player
         int def;
         string race;
         int gold;
-        Posn p = {0,0};
+        Posn p;
         bool barrier_suit;
         bool compass;
 

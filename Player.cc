@@ -8,9 +8,9 @@
 
 using namespace std;
 
-Player::Player(int hp, int atk, int def, string race):
+Player::Player(int hp, int atk, int def, string race, int x, int y):
 	       maxhp{hp}, hp{hp}, baseatk{atk}, atk{atk}, basedef{def}, def{def},
-               race{race}, gold{0}, barrier_suit{false}, compass{false} {}
+               race{race}, gold{0}, p{Posn(x,y)}, barrier_suit{false}, compass{false} {}
 
 string Player::get_race(){
     return race;
@@ -45,6 +45,10 @@ bool Player::get_barriersuit(){
 
 void Player::switch_barrier(){
     barrier_suit = true;
+}
+
+Posn Player::getPosn(){
+    return p;
 }
 
 void Player::Move(string direction){

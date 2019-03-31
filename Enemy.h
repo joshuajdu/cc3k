@@ -16,7 +16,7 @@ class Enemy
 {
     public:
 
-        Enemy(int hp, int atk, int def, string race);
+        Enemy(int hp, int atk, int def, string race, int x=0, int y=0);
 
         //virtual void Move(string direction) = 0;
         void Damage(Player &p);
@@ -24,6 +24,7 @@ class Enemy
         string get_race();
         int *get_hp();
         int* get_atk();
+        Posn getPosn();
 
     protected:
 
@@ -33,7 +34,7 @@ class Enemy
         int room;
         string race;
         bool compass = false;
-        //posn p;
+        Posn p;
 
     private:
 };
