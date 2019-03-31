@@ -7,11 +7,15 @@
 
 using namespace std;
 
-Enemy::Enemy(int hp , int atk, int def, string race):
-            hp{hp},atk{atk},def{def},race{race}{}
+Enemy::Enemy(int hp , int atk, int def, string race, int x, int y):
+            hp{hp},atk{atk},def{def},race{race}, p{Posn(x,y)}{}
 
 string Enemy::get_race(){
     return race;
+}
+
+Posn Enemy::getPosn(){
+    return p;
 }
 
 int *Enemy::get_hp(){
