@@ -53,7 +53,7 @@ void Cell::print(){
 /// object interaction
 
 void Cell::addOccupant(Player &p) {occ.p = p; occ.occupied = true;}
-///### [[ add in win condition if Cell is staircase ]] ### x
+///### [[ add in win condition if Cell is staircase ]] ###
 void Cell::addOccupant(Enemy &e) {occ.e = e; occ.occupied = true;}
 void Cell::addOccupant(Item &i) {occ.i = i; occ.occupied = true;}
 

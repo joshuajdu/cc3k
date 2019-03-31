@@ -16,34 +16,33 @@ struct Occupier {
 };
 
 class Cell {
-    private:
-        cellType cellT;
-        Occupier occ = {false, nullptr, nullptr, nullptr};
-        Posn pos;
-    public:
+private:
+    cellType cellT;
+    Occupier occ = {false, nullptr, nullptr, nullptr};
+    Posn pos;
 
-        /// CONSTRUCTORS
+public:
+    /// CONSTRUCTORS
+    Cell(Posn p, cellType c);
+    Cell(Posn p, cellType c, Player &pl);
+    Cell(Posn p, cellType c, Enemy &e);
+    Cell(Posn p, cellType c, Item &i);
 
-        Cell(Posn p, cellType c);
-        Cell(Posn p, cellType c, Player &pl);
-        Cell(Posn p, cellType c, Enemy &e);
-        Cell(Posn p, cellType c, Item &i);
+    /// INFORMATION-BASED FUNCTIONS
 
-        /// INFORMATION-BASED FUNCTIONS
+    Posn getPosn();
+    bool occupied();
+    Occupier getOccupier();
+    cellType type();
+    Item item();
+    void print();
 
-        Posn getPosn();
-        bool occupied();
-        Occupier getOccupier();
-        cellType type();
-        Item item();
-        void print();
+    /// INTERACTION WITH OTHER OBJECTS
 
-        /// INTERACTION WITH OTHER OBJECTS
-
-        void addOccupant(Player &p);
-        void addOccupant(Enemy &e);
-        void addOccupant(Item &i);
-        void transfer(Cell &c);
+    void addOccupant(Player &p);
+    void addOccupant(Enemy &e);
+    void addOccupant(Item &i);
+    void transfer(Cell &c);
 };
 
 #endif
