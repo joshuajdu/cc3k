@@ -37,5 +37,6 @@ public:
     void addOccupant(Enemy *e);
     void addOccupant(Item *i);
     void transfer(Cell &c);
+    void removeOccupant();
 };
 #endif

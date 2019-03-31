@@ -61,11 +61,14 @@ void Cell::addOccupant(Enemy *e) {occ.e = e; occ.occupied = true;}
 void Cell::addOccupant(Item *i) {occ.i = i; occ.occupied = true;}
 
 void Cell::transfer(Cell &c) {
-    if (this->occupied() && !c.occupied()) {
-        c.addOccupant(occ.p);
-        c.addOccupant(occ.i);
-        c.addOccupant(occ.e);
-        occ.occupied = false;
-        occ.e = nullptr; occ.i = nullptr; occ.p = nullptr;
-    }
+    c.addOccupant(occ.p);
+    c.addOccupant(occ.i);
+    c.addOccupant(occ.e);
+    occ.occupied = false;
+    occ.e = nullptr; occ.i = nullptr; occ.p = nullptr;
+}
+
+void Cell::removeOccupant(){
+    occ.occupied = false;
+    occ.e = nullptr; occ.i = nullptr; occ.p = nullptr;
 }
