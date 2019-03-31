@@ -1,10 +1,19 @@
 #ifndef ITEM_H
 #define ITEM_H
-class Item {
-    private:
-    bool revealed;
-    enum
-    public:
-    void useItem(Player p); // use case
+
+#include "Posn.h"
+#include "Player.h"
+
+class Item{
+    Posn p;
+    std::string name;
+
+public: 
+    Item(int x=0, int y=0, string name = "");
+    std::string getName();
+    Posn getPosn();
+    void setName(std::string name);
+    virtual void useItem(Player &p) = 0; 
 };
+
 #endif

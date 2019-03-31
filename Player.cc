@@ -44,36 +44,18 @@ void Player::switch_barrier(){
 }
 
 void Player::Move(string direction){
-    if (direction == "no"){
-        p.y++;
-    }
-    else if (direction == "so"){
-        p.y--;
-    }
-    else if (direction == "ea"){
-        p.x++;
-    }
-    else if (direction == "we"){
-        p.x--;
-    }
-    else if (direction == "ne"){
-        p.x++;
-        p.y++;
-    }
-    else if (direction == "nw"){
-        p.y++;
-        p.x--;
-    }
-    else if (direction == "se"){
-        p.x++;
-        p.y--;
-    }
-    else if (direction == "sw"){
-        p.x--;
-        p.y--;
-    }
-    else{
-        //error
+
+    if (direction == "we") p.x--;
+    else {
+        switch (direction[0]) {
+        case 'n': p.y++; break;
+        case 's': p.y--; break;
+        case 'e': p.x++; break;
+        }
+        switch (direction[1]) {
+        case 'e': p.x++; break;
+        case 'w': p.x--; break;
+        }
     }
 }
 

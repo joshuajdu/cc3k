@@ -2,23 +2,27 @@
 
 using namespace std;
 
+/// various overloaded constructors for each possibility
+
 Cell::Cell(Posn p, cellType c): pos{p}, cellT{c} {}
 Cell::Cell(Posn p, cellType c, Player &pl): pos{p}, cellT{c} {
     occ.occupied = true;
     occ.p = p1;
 }
-
 Cell::Cell(Posn p, cellType c, Enemy &e): pos{p}, cellT{c} {
     occ.occupied = true;
     occ.e = e;
 }
-
 Cell::Cell(Posn p, cellType c, Item &i): pos{p}, cellT{c} {
     occ.occupied = true;
     occ.i = i;
 }
 
-/// various overloaded constructors for each possibility
+/// information-based functions
+
+Posn Cell::getPosn() {
+    return pos;
+}
 
 bool Cell::occupied() {
     return occ.occupied;
@@ -32,7 +36,7 @@ cellType Cell::type(){
     return cellT;
 }
 
-Item Cell::item(){
+Item* Cell::item(){
     if (occ.i) return occ.i;
 }
 
@@ -43,9 +47,13 @@ void Cell::print(){
         case door:      cout << "+"; break;
         case passage:   cout << "#"; break;
         case empty:     cout << " "; break;
+    }
 }
 
+/// object interaction
+
 void Cell::addOccupant(Player &p) {occ.p = p; occ.occupied = true;}
+///### [[ add in win condition if Cell is staircase ]] ### x
 void Cell::addOccupant(Enemy &e) {occ.e = e; occ.occupied = true;}
 void Cell::addOccupant(Item &i) {occ.i = i; occ.occupied = true;}
 
