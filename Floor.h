@@ -16,8 +16,11 @@ class Floor{
     std::vector<Enemy*> enemies;
 
 public:
+    void generateFloor();
     void addInput(std::string line, int x);
+    Cell* findCell(Posn p);
 
-    vector< vector<Cell> > getCell() const;
-    vector<Enemy*>& getEnemies();
+    vector<Enemy*>* getEnemies();
 };
+
+#endif
