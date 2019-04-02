@@ -22,27 +22,13 @@ void useItem(Player &a, Item &p){
     p.useItem(a);
 }
 
-int main()
-{
-    Player a;
-    printPlayer(a);
+//Global Constant Chambers used for Generation Purposes
+Chamber a, b, c, d, e;
+
+int main(){
+    Player player;
     BA pot1 = BA(0,0);
-    cout << pot1.foundItem() << endl;
-    printPlayer(a);
-    pot1.useItem(a);
-    cout << pot1.foundItem() << endl;
-    printPlayer(a);
-    useItem(a, pot1);
-    printPlayer(a);
-    // Testing Treasures
-    Treasure trea1 = Treasure(1,1,6);
-    BarrierSuit suit = BarrierSuit(3,4);
-    useItem(a, trea1);
-    printPlayer(a);
-    useItem(a, suit);
-    printPlayer(a);
-    Treasure trea2 = Treasure(4,5,2);
-    useItem(a, trea2);
-    printPlayer(a);
+    generateDefaultChambers(a, b, c, d, e);
+    
     return 0;
 }
