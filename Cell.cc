@@ -37,7 +37,7 @@ Item* Cell::getItem() {return occ.i;}
 Enemy* Cell::getEnemy() {return occ.e;}
 
 bool Cell::playerCanMove() {
-    if (!occupied() || occ.occupierType == occType::Gold || stairs) {
+    if (!occupied() || occ.occupierType == occType::Gold_ || stairs) {
         if (cellT >= 2 && cellT <= 4) return true;
     }
     return false;
@@ -50,11 +50,11 @@ bool Cell::enemyCanMove() {
 void Cell::print(){
     if (this.occcupied()) {
         switch (occ.occupierType) {
-        case occType::Player: cout << "@"; break;
-        case occType::Enemy: occ.e->print(); break;
-        case occType::Item: occ.i->print(); break;
-        case occType::Gold: occ.i->print(); break;
-        case occType::None:
+        case occType::Player_: cout << "@"; break;
+        case occType::Enemy_: occ.e->print(); break;
+        case occType::Item_: occ.i->print(); break;
+        case occType::Gold_: occ.i->print(); break;
+        case occType::None_:
             if (stairs && compassFound) cout << "\\";
             else cout << ".";
         }
@@ -76,19 +76,19 @@ void Cell::print(){
 void Cell::addOccupant(Player &p) {
     occ.p = p;
     occ.occupied = true;
-    occ.occupierType = occType::Player;
+    occ.occupierType = occType::Player_;
 }
 ///### [[ add in win condition if Cell is staircase ]] ###
 void Cell::addOccupant(Enemy &e) {
     occ.e = e;
     occ.occupied = true;
-    occ.occupierType = occType::Enemy;
+    occ.occupierType = occType::Enemy_;
 }
 void Cell::addOccupant(Item &i) {
     occ.i = i;
     occ.occupied = true;
-    if (i->isGold()) occ.occupierType = occType::Gold;
-    else occ.occupierType = occType::Item;
+    if (i->isGold()) occ.occupierType = occType::Gold_;
+    else occ.occupierType = occType::Item_;
 }
 
 void Cell::transfer(Cell &c) {

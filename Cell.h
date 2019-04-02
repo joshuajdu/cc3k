@@ -7,7 +7,7 @@
 #include "Enemy.h"
 
 enum cellType { hWall, vWall, door, passage, tile, empty };
-enum occType { Player, Enemy, Item, Gold, None };
+enum occType { Player_, Enemy_, Item_, Gold_, None_ };
 
 /// general purpose storage for relevant game pointers
 
