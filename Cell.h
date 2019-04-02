@@ -1,8 +1,10 @@
 #ifndef CELL_H
 #define CELL_H
 
-#include "Item.h"
 #include "Posn.h"
+#include "Item.h"
+#include "Player.h"
+#include "Enemy.h"
 
 enum cellType { hWall, vWall, door, passage, tile, empty };
 enum occType { Player, Enemy, Item, Gold, None };
@@ -23,7 +25,7 @@ class Cell {
     Occupier occ = {false, occType::None, nullptr, nullptr, nullptr};
     Posn pos;
     bool stairs = false;
-    static compassFound;
+    static bool compassFound;
 
 public:
     /// CONSTRUCTORS / DATA MANIPULATION
