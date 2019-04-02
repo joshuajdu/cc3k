@@ -30,6 +30,8 @@ int main(){
     Player player;
     BA pot1 = BA(0,0);
     generateDefaultChambers(a, b, c, d, e);
-    
+    Floor temp;
+    temp.generateFloor();
+    temp.printDisplay();
     return 0;
 }
