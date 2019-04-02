@@ -75,18 +75,21 @@ void Cell::addOccupant(Player *p) {
     occ.occupied = true;
     occ.occupierType = occType::Player_;
 }
+
 ///### [[ add in win condition if Cell is staircase ]] ###
 void Cell::addOccupant(Enemy *e) {
     occ.e = e;
     occ.occupied = true;
     occ.occupierType = occType::Enemy_;
 }
+
 void Cell::addOccupant(Item *i) {
     occ.i = i;
     occ.occupied = true;
     if (i->isTreasure()) occ.occupierType = occType::Gold_;
     else occ.occupierType = occType::Item_;
 }
+
 void Cell::transfer(Cell &c) {
     if (this->occupied() && !c.occupied()) {
         c.addOccupant(occ.p);
@@ -96,5 +99,6 @@ void Cell::transfer(Cell &c) {
         occ.e = nullptr; occ.i = nullptr; occ.p = nullptr;
     }
 }
+
 void Cell::compassFound() {compass = true;}
 bool Cell::compass = false;

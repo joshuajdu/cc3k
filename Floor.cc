@@ -64,7 +64,7 @@ void Floor::printDisplay(){
 }
 
 Cell* Floor::findCell(Posn p){
-    return &cells[p.x][p.y];
+    return &cells[p.y][p.x];
 }
 
 vector<Enemy*>* Floor::getEnemies(){
