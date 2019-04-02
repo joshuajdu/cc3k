@@ -2,9 +2,15 @@
 #define CHAMBER_H
 
 #include <vector>
-#include "Cell.h"
+#include "Posn.h"
 
-class Chamber{
-private:
-    vector<Cell> 
-}
+struct Chamber{
+    int numCells;
+    std::vector<Posn> cells;
+
+    Chamber();
+    void addCell(int x, int y);
+    void addCell(Posn p);
+};
+
+#endif
