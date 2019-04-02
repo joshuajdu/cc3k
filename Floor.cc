@@ -19,7 +19,7 @@ void Floor::generateFloor(){
     }
     string line;
     int row = 0;
-    while(inFile >> line){
+    while(getline(inFile, line)){
 	vector<Cell> rowCells;
 	for (int i=0; i<(int)line.size(); i++){
 	    Posn p = Posn(i,row);
@@ -50,14 +50,16 @@ void Floor::generateFloor(){
 		} break;
 	    }
 	}
+    cells.push_back(rowCells);
     }
 }
 
 void Floor::printDisplay(){
-    for(int i=0; i<cells.size(); i++){
-	for (int j=0; j<cells[0].size(); j++){
+    for(int i=0; i<(int)cells.size(); i++){
+	for (int j=0; j<(int)cells[0].size(); j++){
 	    cells[i][j].print();
 	}
+	cout << endl;
     }
 }
 
