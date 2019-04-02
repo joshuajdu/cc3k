@@ -11,6 +11,9 @@ struct Chamber{
     Chamber();
     void addCell(int x, int y);
     void addCell(Posn p);
+    Posn randomCell();
 };
+
+void generateDefaultChambers(Chamber &a, Chamber &b, Chamber &c, Chamber &d, Chamber &e);
 
 #endif
