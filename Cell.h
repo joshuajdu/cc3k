@@ -8,6 +8,7 @@
 
 enum cellType { hWall, vWall, door, passage, tile, empty };
 enum occType { Player_, Enemy_, Item_, Gold_, None_ };
+
 /// general purpose storage for relevant game pointers
 struct Occupier {
     bool occupied;
@@ -16,13 +17,14 @@ struct Occupier {
     Enemy *e;
     Item *i;
 };
+
 class Cell {
-    private:
     cellType cellT;
     Occupier occ = {false, occType::None_, nullptr, nullptr, nullptr};
     Posn pos;
     bool stairs = false;
     static bool compass;
+
 public:
     /// CONSTRUCTORS / DATA MANIPULATION
     Cell(Posn p, cellType c);
@@ -30,6 +32,7 @@ public:
     Cell(Posn p, cellType c, Enemy *e);
     Cell(Posn p, cellType c, Item *i);
     void setStairs();
+
     /// INFORMATION-BASED FUNCTIONS
     Posn getPosn();
     bool isStairs();
@@ -41,6 +44,7 @@ public:
     bool playerCanMove();
     bool enemyCanMove();
     void print();
+
     /// INTERACTION WITH OTHER OBJECTS
     void addOccupant(Player *p);
     void addOccupant(Enemy *e);
