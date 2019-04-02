@@ -18,9 +18,13 @@ Cell::Cell(Posn p, cellType c, Item &i): pos{p}, cellT{c} {
     occ.i = i;
 }
 
+void Cell::setStairs() {stairs = true; occ.occupied = true;}
+
 /// information-based functions
 
 Posn Cell::getPosn() {return pos;}
+
+bool Cell::isStairs() {return stairs;}
 
 bool Cell::occupied() {return occ.occupied;}
 
@@ -33,7 +37,7 @@ Item* Cell::getItem() {return occ.i;}
 Enemy* Cell::getEnemy() {return occ.e;}
 
 bool Cell::playerCanMove() {
-    if (!occupied() || occ.occupierType == occType::Gold) {
+    if (!occupied() || occ.occupierType == occType::Gold || stairs) {
         if (cellT >= 2 && cellT <= 4) return true;
     }
     return false;
@@ -49,6 +53,10 @@ void Cell::print(){
         case occType::Player: cout << "@"; break;
         case occType::Enemy: occ.e->print(); break;
         case occType::Item: occ.i->print(); break;
+        case occType::Gold: occ.i->print(); break;
+        case occType::None:
+            if (stairs && compassFound) cout << "\\";
+            else cout << ".";
         }
     } else {
         switch (cellT) {
@@ -92,3 +100,7 @@ void Cell::transfer(Cell &c) {
         occ.e = nullptr; occ.i = nullptr; occ.p = nullptr;
     }
 }
+
+void Cell::compassFound() {compassFound = true;}
+
+bool Cell::compassFound = false;

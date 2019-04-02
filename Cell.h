@@ -22,17 +22,22 @@ class Cell {
     cellType cellT;
     Occupier occ = {false, occType::None, nullptr, nullptr, nullptr};
     Posn pos;
+    bool stairs = false;
+    static compassFound;
 
 public:
-    /// CONSTRUCTORS
+    /// CONSTRUCTORS / DATA MANIPULATION
     Cell(Posn p, cellType c);
     Cell(Posn p, cellType c, Player &pl);
     Cell(Posn p, cellType c, Enemy &e);
     Cell(Posn p, cellType c, Item &i);
 
+    void setStairs();
+
     /// INFORMATION-BASED FUNCTIONS
 
     Posn getPosn();
+    bool isStairs();
     bool occupied();
     occType getOccupierType();
 
@@ -52,6 +57,7 @@ public:
     void addOccupant(Enemy &e);
     void addOccupant(Item &i);
     void transfer(Cell &c);
+    void compassFound();
 };
 
 #endif
