@@ -19,7 +19,7 @@ public:
     void generateFloor();
     void addInput(std::string line, int x);
     Cell* findCell(Posn p);
-
+    void printDisplay();
     vector<Enemy*>* getEnemies();
 };
 

@@ -53,6 +53,14 @@ void Floor::generateFloor(){
     }
 }
 
+void Floor::printDisplay(){
+    for(int i=0; i<cells.size(); i++){
+	for (int j=0; j<cells[0].size(); j++){
+	    cells[i][j].print();
+	}
+    }
+}
+
 Cell* Floor::findCell(Posn p){
     return &cells[p.x][p.y];
 }
