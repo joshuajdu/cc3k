@@ -8,11 +8,14 @@ class Treasure: public Item{
 public:
     Treasure(int x, int y, int goldVal);
     virtual void useItem(Player &p);
+    virtual void print();
+    bool isTreasure();
 };
 
 class BarrierSuit: public Treasure{
 public:
     BarrierSuit(int x, int y);
+    void print();
     void useItem(Player &p);
 };
 #endif
