@@ -19,8 +19,18 @@ void Treasure::useItem(Player &p){
     }
 }
 
+void Treasure::print(){
+    cout << "G";
+}
+
+bool Treasure::isTreasure(){ return true; }
+
 BarrierSuit::BarrierSuit(int x, int y): Treasure(x, y, 0) {}
 
 void BarrierSuit::useItem(Player &p){
     p.switch_barrier();
+}
+
+void BarrierSuit::print(){
+    cout << "B";
 }

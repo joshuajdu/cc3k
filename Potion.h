@@ -9,6 +9,8 @@ public:
     Potion(int x, int y, std::string name);
     virtual void useItem(Player &p) = 0;
     virtual bool foundItem() = 0;
+    void print();
+    bool isTreasure();
 };
 
 class RH: public Potion{

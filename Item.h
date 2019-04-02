@@ -13,7 +13,9 @@ public:
     std::string getName();
     Posn getPosn();
     void setName(std::string name);
-    virtual void useItem(Player &p) = 0; 
+    virtual void useItem(Player &p) = 0;
+    virtual void print() = 0;
+    virtual bool isTreasure() = 0;
 };
 
 #endif

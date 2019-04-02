@@ -6,6 +6,12 @@ using namespace std;
 
 Potion::Potion(int x, int y, string name): Item(x, y, name) {}
 
+void Potion::print(){
+    cout << "P";
+}
+
+bool Potion::isTreasure() { return false; }
+
 RH::RH(int x, int y): Potion(x, y, "RH") {}
 
 void RH::useItem(Player &p){
