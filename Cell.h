@@ -5,20 +5,22 @@
 #include "Posn.h"
 
 enum cellType { hWall, vWall, door, passage, tile, empty };
+enum occType { Player, Enemy, Item, Gold, None };
 
 /// general purpose storage for relevant game pointers
 
 struct Occupier {
     bool occupied;
+    occType occupierType;
     Player *p;
     Enemy *e;
     Item *i;
 };
 
 class Cell {
-private:
+    private:
     cellType cellT;
-    Occupier occ = {false, nullptr, nullptr, nullptr};
+    Occupier occ = {false, occType::None, nullptr, nullptr, nullptr};
     Posn pos;
 
 public:
@@ -32,9 +34,16 @@ public:
 
     Posn getPosn();
     bool occupied();
-    Occupier getOccupier();
+    occType getOccupierType();
+
     cellType type();
-    Item item();
+
+    Item* getItem();
+    Enemy* getEnemy();
+
+    bool playerCanMove();
+    bool enemyCanMove();
+
     void print();
 
     /// INTERACTION WITH OTHER OBJECTS
