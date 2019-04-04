@@ -21,6 +21,7 @@ public:
     Cell* findCell(Posn p);
     void printDisplay();
     vector<Enemy*>* getEnemies();
+    void spawn();
 };
 
 #endif

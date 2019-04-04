@@ -2,12 +2,27 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
+#include <time.h>
 #include "Cell.h"
 #include "Posn.h"
+#include "Chamber.h"
 
 using namespace std;
 
 void Floor::addInput(string line, int x){
+}
+
+void Floor::spawn(){
+    
+    int chamber = rand() % 5;
+    
+    int enemyrand;
+    for (int i=0; i<20; i++){
+	if (i < enemyRates::W){
+	    Werewolf temp;
+	    enemies.push_back(&temp);
+    }
 }
 
 void Floor::generateFloor(){
