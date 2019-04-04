@@ -42,7 +42,7 @@ class Floor{
 
 public:
     void generateFloor();
-    void addInput(std::string line, int x);
+    void addInput(std::string line, int x, Player* player);
     Cell* findCell(Posn p);
     void printDisplay();
     void spawn(Player &player);

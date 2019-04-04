@@ -7,7 +7,51 @@
 
 using namespace std;
 
-void Floor::addInput(string line, int x){
+void Floor::addInput(string line, int row, Player* player){
+     for (int k = 0; k < (int)cells[row].size(); k++) {
+        char cellInput = line[k];
+        switch (cellInput) {
+            case '0': cells[row][k].addOccupant(shared_ptr<Item>(new RH(k, row))); break;
+            case '1': cells[row][k].addOccupant(shared_ptr<Item>(new BA(k, row))); break;
+            case '2': cells[row][k].addOccupant(shared_ptr<Item>(new BD(k, row))); break;
+            case '3': cells[row][k].addOccupant(shared_ptr<Item>(new PH(k, row))); break;
+            case '4': cells[row][k].addOccupant(shared_ptr<Item>(new WA(k, row))); break;
+            case '5': cells[row][k].addOccupant(shared_ptr<Item>(new WD(k, row))); break;
+            case '6': cells[row][k].addOccupant(shared_ptr<Item>(new Treasure(k, row, 1))); break;
+            case '7': cells[row][k].addOccupant(shared_ptr<Item>(new Treasure(k, row, 2))); break;
+            case '8': cells[row][k].addOccupant(shared_ptr<Item>(new Treasure(k, row, 4))); break;
+            case '9': cells[row][k].addOccupant(shared_ptr<Item>(new Treasure(k, row, 6))); break;
+            case '@': cells[row][k].addOccupant(player); break;
+            case 'V': {
+	   	enemies.push_back(shared_ptr<Enemy>(new Vampire()));
+            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+	    } break;
+            case 'W': {
+	   	enemies.push_back(shared_ptr<Enemy>(new Werewolf()));
+            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+	    }  break;
+            case 'N': { 
+	    	enemies.push_back(shared_ptr<Enemy>(new Goblin()));
+            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+	    } break;
+            case 'M': {
+	    	enemies.push_back(shared_ptr<Enemy>(new Merchant()));
+            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+	    } break;
+            case 'D': {
+	    	enemies.push_back(shared_ptr<Enemy>(new Dragon()));
+            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+	    } break;
+            case 'X': {
+	    	enemies.push_back(shared_ptr<Enemy>(new Phoenix()));
+            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+	    } break;
+            case 'T': {
+	    	enemies.push_back(shared_ptr<Enemy>(new Troll()));
+            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+	    } break;
+	}
+    }
 }
 
 Posn Floor::randomCellChamber(int chamber){
@@ -100,7 +144,6 @@ bool Floor::generateGold(){
 	    findCell(p)->addOccupant(shared_ptr<Item>(new Treasure(p.x, p.y, 1)));
 	}
         else if (goldrand < goldRates::G_D){
-   	    cout << "Made Dragon Gold" << endl;
 	    findCell(p)->addOccupant(shared_ptr<Item>(new Treasure(p.x, p.y, 6)));
 	    generateDragon(findCell(p)->getItem());
 	}
