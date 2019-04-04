@@ -32,6 +32,7 @@ int main(){
     generateDefaultChambers(a, b, c, d, e);
     Floor temp;
     temp.generateFloor();
+    temp.spawn();
     temp.printDisplay();
     return 0;
 }

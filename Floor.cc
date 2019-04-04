@@ -4,9 +4,6 @@
 #include <fstream>
 #include <cstdlib>
 #include <time.h>
-#include "Cell.h"
-#include "Posn.h"
-#include "Chamber.h"
 
 using namespace std;
 
@@ -14,14 +11,47 @@ void Floor::addInput(string line, int x){
 }
 
 void Floor::spawn(){
-    
-    int chamber = rand() % 5;
-    
+    generateDefaultChambers(a, b, c, d, e);
+    int chamber;
+    Posn p{0,0};
     int enemyrand;
     for (int i=0; i<20; i++){
-	if (i < enemyRates::W){
-	    Werewolf temp;
-	    enemies.push_back(&temp);
+	chamber = rand() % 5;
+	enemyrand = rand() % enemyRates::enemyTotal;
+        switch(chamber){
+            case 0: p = a.randomCell(); break;
+            case 1: p = b.randomCell(); break;
+            case 2: p = c.randomCell(); break;
+            case 3: p = d.randomCell(); break;
+            case 4: p = e.randomCell(); break;
+    	}
+	if (findCell(p)->getOccupierType() != None_ || !findCell(p)->isStairs()) i--;
+	else {
+	    if (enemyrand < enemyRates::W){
+	    	enemies.push_back(shared_ptr<Enemy>(new Werewolf()));
+	    	findCell(p)->addOccupant(enemies[enemies.size()-1]);
+	    }
+	    else if (enemyrand < enemyRates::V){
+	    	enemies.push_back(shared_ptr<Enemy>(new Vampire()));
+	    	findCell(p)->addOccupant(enemies[enemies.size()-1]);
+	    }
+	    else if (enemyrand < enemyRates::N){
+	    	enemies.push_back(shared_ptr<Enemy>(new Goblin()));
+            	findCell(p)->addOccupant(enemies[enemies.size()-1]);
+	    }
+	    else if (enemyrand < enemyRates::M){
+	    	enemies.push_back(shared_ptr<Enemy>(new Merchant()));
+            	findCell(p)->addOccupant(enemies[enemies.size()-1]);
+	    }
+	    else if (enemyrand < enemyRates::X){
+	    	enemies.push_back(shared_ptr<Enemy>(new Phoenix()));
+            	findCell(p)->addOccupant(enemies[enemies.size()-1]);
+	    }
+	    else{
+	    	enemies.push_back(shared_ptr<Enemy>(new Troll()));
+            	findCell(p)->addOccupant(enemies[enemies.size()-1]);
+	    }
+	}
     }
 }
 
@@ -80,8 +110,4 @@ void Floor::printDisplay(){
 
 Cell* Floor::findCell(Posn p){
     return &cells[p.y][p.x];
-}
-
-vector<Enemy*>* Floor::getEnemies(){
-    return &enemies;
 }
