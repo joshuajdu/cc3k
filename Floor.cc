@@ -22,6 +22,7 @@ void Floor::addInput(string line, int row, Player* player){
             case '8': cells[row][k].addOccupant(shared_ptr<Item>(new Treasure(k, row, 4))); break;
             case '9': cells[row][k].addOccupant(shared_ptr<Item>(new Treasure(k, row, 6))); break;
             case '@': cells[row][k].addOccupant(player); break;
+	    case '\\': cells[row][k].setStairs(); break;
             case 'V': {
 	   	enemies.push_back(shared_ptr<Enemy>(new Vampire()));
             	cells[row][k].addOccupant(enemies[enemies.size()-1]);
