@@ -34,7 +34,10 @@ class Floor{
     std::vector< vector<Cell> > cells;
     std::vector< shared_ptr<Enemy> > enemies;
     Chamber a,b,c,d,e;
-
+    bool generateEnemy();
+    bool generatePotion();
+    bool generateGold();
+    bool generateDragon(shared_ptr<Item> treasure);
     Posn randomCellChamber(int chamber = -1);
 
 public:
