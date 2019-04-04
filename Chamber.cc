@@ -19,7 +19,6 @@ void Chamber::addCell(Posn p){
 }
 
 Posn Chamber::randomCell(){
-    srand(time(NULL));
     int random = rand() % numCells;
     return cells[random];
 }

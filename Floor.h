@@ -35,12 +35,14 @@ class Floor{
     std::vector< shared_ptr<Enemy> > enemies;
     Chamber a,b,c,d,e;
 
+    Posn randomCellChamber(int chamber = -1);
+
 public:
     void generateFloor();
     void addInput(std::string line, int x);
     Cell* findCell(Posn p);
     void printDisplay();
-    void spawn();
+    void spawn(Player &player);
 };
 
 #endif

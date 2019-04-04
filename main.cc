@@ -1,4 +1,6 @@
 #include <iostream>
+#include <time.h>
+#include <cstdlib>
 #include "Player.h"
 #include "Posn.h"
 #include "Enemy.h"
@@ -24,15 +26,14 @@ void useItem(Player &a, Item &p){
 }
 
 //Global Constant Chambers used for Generation Purposes
-Chamber a, b, c, d, e;
 
 int main(){
+    srand(time(NULL));
     Player player;
     BA pot1 = BA(0,0);
-    generateDefaultChambers(a, b, c, d, e);
     Floor temp;
     temp.generateFloor();
-    temp.spawn();
+    temp.spawn(player);
     temp.printDisplay();
     return 0;
 }

@@ -10,22 +10,35 @@ using namespace std;
 void Floor::addInput(string line, int x){
 }
 
-void Floor::spawn(){
-    generateDefaultChambers(a, b, c, d, e);
-    int chamber;
+Posn Floor::randomCellChamber(int chamber){
+    if (chamber==-1) chamber = rand() % 5;
     Posn p{0,0};
+    switch(chamber){
+	case 0: p = a.randomCell(); break;
+	case 1: p = b.randomCell(); break;
+	case 2: p = c.randomCell(); break;
+	case 3: p = d.randomCell(); break;
+	case 4: p = e.randomCell(); break;
+    }
+    return p;
+}
+
+void Floor::spawn(Player &player){
+    generateDefaultChambers(a, b, c, d, e);
+    Posn p{0,0};
+    int playerChamber = rand() % 5;
+    int stairsChamber = playerChamber;
+    while(playerChamber == stairsChamber){
+	stairsChamber = rand() % 5;
+    }
+    findCell(randomCellChamber(playerChamber))->addOccupant(&player);
+    findCell(randomCellChamber(stairsChamber))->setStairs();
+
     int enemyrand;
     for (int i=0; i<20; i++){
-	chamber = rand() % 5;
 	enemyrand = rand() % enemyRates::enemyTotal;
-        switch(chamber){
-            case 0: p = a.randomCell(); break;
-            case 1: p = b.randomCell(); break;
-            case 2: p = c.randomCell(); break;
-            case 3: p = d.randomCell(); break;
-            case 4: p = e.randomCell(); break;
-    	}
-	if (findCell(p)->getOccupierType() != None_ || !findCell(p)->isStairs()) i--;
+        p = randomCellChamber();
+	if (findCell(p)->getOccupierType() != None_ || findCell(p)->isStairs()) i--;
 	else {
 	    if (enemyrand < enemyRates::W){
 	    	enemies.push_back(shared_ptr<Enemy>(new Werewolf()));
