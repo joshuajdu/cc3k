@@ -5,15 +5,18 @@ using namespace std;
 /// various overloaded constructors for each possibility
 
 Cell::Cell(Posn p, cellType c): cellT{c}, pos{p} {}
+
 Cell::Cell(Posn p, cellType c, Player *pl): cellT{c}, pos{p} {
     occ.occupied = true;
     occ.p = pl;
 }
-Cell::Cell(Posn p, cellType c, Enemy *e): cellT{c}, pos{p} {
+
+Cell::Cell(Posn p, cellType c, shared_ptr<Enemy> e): cellT{c}, pos{p} {
     occ.occupied = true;
     occ.e = e;
 }
-Cell::Cell(Posn p, cellType c, Item *i): cellT{c}, pos{p}{
+
+Cell::Cell(Posn p, cellType c, shared_ptr<Item> i): cellT{c}, pos{p}{
     occ.occupied = true;
     occ.i = i;
 }
@@ -31,9 +34,9 @@ occType Cell::getOccupierType() {return occ.occupierType;}
 
 cellType Cell::type() {return cellT;}
 
-Item* Cell::getItem() {return occ.i;}
+shared_ptr<Item> Cell::getItem() {return occ.i;}
 
-Enemy* Cell::getEnemy() {return occ.e;}
+shared_ptr<Enemy> Cell::getEnemy() {return occ.e;}
 
 bool Cell::playerCanMove() {
     if (!occupied() || occ.occupierType == occType::Gold_ || stairs) {
@@ -77,13 +80,13 @@ void Cell::addOccupant(Player *p) {
 }
 
 ///### [[ add in win condition if Cell is staircase ]] ###
-void Cell::addOccupant(Enemy *e) {
+void Cell::addOccupant(shared_ptr<Enemy> e) {
     occ.e = e;
     occ.occupied = true;
     occ.occupierType = occType::Enemy_;
 }
 
-void Cell::addOccupant(Item *i) {
+void Cell::addOccupant(shared_ptr<Item> i) {
     occ.i = i;
     occ.occupied = true;
     if (i->isTreasure()) occ.occupierType = occType::Gold_;
@@ -98,7 +101,10 @@ void Cell::transfer(Cell &c) {
         occ.occupied = false;
         occ.e = nullptr; occ.i = nullptr; occ.p = nullptr;
     }
+    moved = true;
 }
+
+void Cell::resetMove() { moved = false; }
 
 void Cell::compassFound() {compass = true;}
 bool Cell::compass = false;

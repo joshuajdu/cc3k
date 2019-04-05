@@ -1,6 +1,8 @@
 #ifndef CELL_H
 #define CELL_H
 
+#include <memory>
+
 #include "Posn.h"
 #include "Item.h"
 #include "Player.h"
@@ -14,14 +16,15 @@ struct Occupier {
     bool occupied;
     occType occupierType;
     Player *p;
-    Enemy *e;
-    Item *i;
+    shared_ptr<Enemy> e;
+    shared_ptr<Item> i;
 };
 
 class Cell {
     cellType cellT;
     Occupier occ = {false, occType::None_, nullptr, nullptr, nullptr};
     Posn pos;
+    bool moved = false;
     bool stairs = false;
     static bool compass;
 
@@ -29,8 +32,8 @@ public:
     /// CONSTRUCTORS / DATA MANIPULATION
     Cell(Posn p, cellType c);
     Cell(Posn p, cellType c, Player *pl);
-    Cell(Posn p, cellType c, Enemy *e);
-    Cell(Posn p, cellType c, Item *i);
+    Cell(Posn p, cellType c, shared_ptr<Enemy> e);
+    Cell(Posn p, cellType c, shared_ptr<Item> i);
     void setStairs();
 
     /// INFORMATION-BASED FUNCTIONS
@@ -39,17 +42,18 @@ public:
     bool occupied();
     occType getOccupierType();
     cellType type();
-    Item* getItem();
-    Enemy* getEnemy();
+    shared_ptr<Item> getItem();
+    shared_ptr<Enemy> getEnemy();
     bool playerCanMove();
     bool enemyCanMove();
     void print();
 
     /// INTERACTION WITH OTHER OBJECTS
     void addOccupant(Player *p);
-    void addOccupant(Enemy *e);
-    void addOccupant(Item *i);
+    void addOccupant(shared_ptr<Enemy> e);
+    void addOccupant(shared_ptr<Item> i);
     void transfer(Cell &c);
     void compassFound();
+    void resetMove();
 };
 #endif

@@ -29,7 +29,6 @@ class Game{
     private:
 
         Player player;
-        Chamber a,b,c,d,e;
 
 };
 

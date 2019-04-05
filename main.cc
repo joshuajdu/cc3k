@@ -1,5 +1,8 @@
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <time.h>
+#include <cstdlib>
 #include "Player.h"
 #include "Posn.h"
 #include "Enemy.h"
@@ -24,13 +27,9 @@ void useItem(Player &a, Item &p){
     p.useItem(a);
 }
 
-//Global Constant Chambers used for Generation Purposes
-Chamber a, b, c, d, e;
-
 int main(int argc, char* argv[]){
+    srand(time(NULL));
     Player player;
-    BA pot1 = BA(0,0);
-    generateDefaultChambers(a, b, c, d, e);
     Floor temp;
     temp.generateFloor();
     if (argc == 2) {
@@ -38,11 +37,12 @@ int main(int argc, char* argv[]){
         string line;
         int rowCount = 0;
         while (getline(inputFile,line)) {
-            temp.addInput(line, rowCount);
+            temp.addInput(line, rowCount, &player);
             rowCount++;
         }
         inputFile.close();
     }
+    else temp.spawn(player);
     temp.printDisplay();
     return 0;
 }
