@@ -46,11 +46,13 @@ void Game::start_game(){
             Floor fl; /// ADD FLOOR GENERATION AND NECESSARY CODE HERE
 	    fl.generateFloor();
 	    fl.spawn(player);
+	    system("CLS");
 	    fl.printDisplay(player);
 	    cout << "Player character has spawned." << endl;
             /// Loads default floor with random spawn
             bool floor_not_complete = true;
             while (floor_not_complete && *player.get_hp() > 0) {
+		fl.resetMove();
                 Posn currentPosition = player.getPosn();
                 bool successfulCommand = false;
                 cin >> input;
@@ -68,7 +70,7 @@ void Game::start_game(){
                     cin >> input;
                     if (check_direction(input)) {
                         if (fl.findCell(targetPosn(currentPosition, input))->getOccupierType() == occType::Enemy_) {
-                            player.Damage(fl.findCell(targetPosn(currentPosition,input))->getEnemy());
+			    fl.findCell(targetPosn(currentPosition,input))->getEnemy()->Damage(player);
                             successfulCommand = true;
                         }
                     }
@@ -81,11 +83,13 @@ void Game::start_game(){
                     }
                 }
                 if (successfulCommand) { fl.enemyTurn(player); } ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
+		fl.checkDeath();
 		fl.printDisplay(player);
 		if (!successfulCommand){
 		    cout << "Invalid Input" << endl;
 		}
             }
+	    if (*player.get_hp() == 0) level = 6;
             level++;
         }
     }

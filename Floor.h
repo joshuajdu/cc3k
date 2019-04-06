@@ -45,6 +45,7 @@ class Floor{
     void moveEnemy(Posn pos, Player &player);
 
 public:
+    void resetMove();
     void generateFloor();
     void addInput(std::string line, int x, Player* player);
     Cell* findCell(Posn p);

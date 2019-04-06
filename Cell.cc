@@ -109,6 +109,7 @@ void Cell::transfer(Cell *c) {
         occ.e = nullptr; occ.i = nullptr; occ.p = nullptr;
     }
     moved = true;
+    c->moved = true;
 }
 
 void Cell::removeOccupant(){

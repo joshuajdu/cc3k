@@ -22,6 +22,14 @@ void Floor::printDisplay(Player &player){
     cout << "Action: ";
 }
 
+void Floor::resetMove(){
+    for (int i=0; i<(int)cells.size(); i++){
+	for (int j=0; j<(int)cells[0].size(); j++){
+	    cells[i][j].resetMove();
+	}
+    }
+}
+
 void Floor::checkDeath(){
     for(int i=0; i<(int)enemies.size(); i++){
 	if (*enemies[i]->get_hp() == 0){
@@ -82,7 +90,7 @@ vector<Posn> Floor::enemyMovable(Posn p){
 void Floor::moveEnemy(Posn pos, Player &player){
     if (findCell(pos)->getOccupierType() == 1 && !findCell(pos)->hasMoved()){
 	if (playerInRange(pos)){
-	    findCell(pos)->getEnemy()->Damage(player);
+	    player.Damage(findCell(pos)->getEnemy());
 	}
 	else{
 	    vector<Posn> movable = enemyMovable(pos);
