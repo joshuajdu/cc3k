@@ -88,11 +88,13 @@ void Floor::moveEnemy(Posn pos, Player &player){
 	    if (atkrand == 0) player.Damage(findCell(pos)->getEnemy());
 	}
 	else{
-	    vector<Posn> movable = enemyMovable(pos);
-	    if (movable.size() != 0){
-    	    	int moveRand = rand()%movable.size();
-    	    	Posn target = movable[moveRand];
-    	    	findCell(pos)->transfer(findCell(target));
+	    if (findCell(pos)->getEnemy()->get_race() != "Dragon"){
+	    	vector<Posn> movable = enemyMovable(pos);
+	    	if (movable.size() != 0){
+    	    	    int moveRand = rand()%movable.size();
+    	    	    Posn target = movable[moveRand];
+    	    	    findCell(pos)->transfer(findCell(target));
+	    	}
 	    }
 	}
     }       

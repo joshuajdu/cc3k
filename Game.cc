@@ -72,6 +72,7 @@ void Game::start_game(string filename){
                     if (check_direction(input)) {
                         if (fl.findCell(targetPosn(currentPosition, input))->getItem()) {
                             fl.findCell(targetPosn(currentPosition, input))->getItem()->useItem(player);
+			    fl.findCell(targetPosn(currentPosition, input))->removeOccupant();
                             successfulCommand = true;
                         }
                     }
