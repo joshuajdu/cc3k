@@ -81,18 +81,17 @@ void Game::start_game(string filename){
                         if (fl.findCell(targetPosn(currentPosition, input))->getOccupierType() == occType::Enemy_) {
 			    fl.findCell(targetPosn(currentPosition,input))->getEnemy()->Damage(player);
                             successfulCommand = true;
+			    fl.checkDeath();
                         }
                     }
                 } else if (check_direction(input)) {
                     if (fl.findCell(targetPosn(currentPosition, input))->playerCanMove()) {
 			player.setPosn(targetPosn(currentPosition, input));
                         fl.findCell(currentPosition)->transfer(fl.findCell(player.getPosn()));
-			 /// ### CELL.CC TRANSFER MUST BE CHANGED!!!
                         successfulCommand = true; /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
                     }
                 }
                 if (successfulCommand) { fl.enemyTurn(player); } ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
-		fl.checkDeath();
 		fl.printDisplay(player);
 		if (!successfulCommand){
 		    cout << "Invalid Input" << endl;

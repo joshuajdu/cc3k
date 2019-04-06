@@ -97,9 +97,16 @@ void Cell::addOccupant(shared_ptr<Item> i) {
 }
 
 void Cell::transfer(Cell *c) {
-    if (this->occupied() && !c->occupied()) {
+    if ((this->occupied() && !c->occupied()) || 
+	(this->getOccupierType() == occType::Player_ && c->getOccupierType() == Gold_)) {
 	switch (getOccupierType()) {
-	    case occType::Player_: c->addOccupant(occ.p); break;
+	    case occType::Player_: {
+		if (c->getOccupierType() == Gold_){
+		    c->getItem()->useItem(*occ.p);
+		    c->removeOccupant();
+		}
+		c->addOccupant(occ.p);
+	    } break;
             case occType::Gold_: c->addOccupant(occ.i); break;
             case occType::Item_: c->addOccupant(occ.i); break;
             case occType::Enemy_: c->addOccupant(occ.e); break;

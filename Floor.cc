@@ -31,12 +31,6 @@ void Floor::resetMove(){
 }
 
 void Floor::checkDeath(){
-    for(int i=0; i<(int)enemies.size(); i++){
-	if (*enemies[i]->get_hp() == 0){
-	    cout << "Enemy Slain: " << enemies[i]->get_race() << endl;
-	    enemies.erase(enemies.begin() + i);
-	}
-    }
     for (int i=0; i<(int)cells.size(); i++){
 	for (int j=0; j<(int)cells[0].size(); j++){
 	    Posn temp = Posn(j,i);
@@ -90,7 +84,8 @@ vector<Posn> Floor::enemyMovable(Posn p){
 void Floor::moveEnemy(Posn pos, Player &player){
     if (findCell(pos)->getOccupierType() == 1 && !findCell(pos)->hasMoved()){
 	if (playerInRange(pos)){
-	    player.Damage(findCell(pos)->getEnemy());
+	    int atkrand = rand()%2;
+	    if (atkrand == 0) player.Damage(findCell(pos)->getEnemy());
 	}
 	else{
 	    vector<Posn> movable = enemyMovable(pos);
@@ -129,32 +124,25 @@ void Floor::addInput(string line, int row, Player* player){
             case '@': cells[row][k].addOccupant(player); player->setPosn(Posn(k, row)); break;
 	    case '\\': cells[row][k].setStairs(); break;
             case 'V': {
-	   	enemies.push_back(shared_ptr<Enemy>(new Vampire()));
-            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+            	cells[row][k].addOccupant(shared_ptr<Enemy>(new Vampire()));
 	    } break;
             case 'W': {
-	   	enemies.push_back(shared_ptr<Enemy>(new Werewolf()));
-            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
-	    }  break;
+            	cells[row][k].addOccupant(shared_ptr<Enemy>(new Werewolf()));
+	    } break;
             case 'N': { 
-	    	enemies.push_back(shared_ptr<Enemy>(new Goblin()));
-            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+            	cells[row][k].addOccupant(shared_ptr<Enemy>(new Goblin()));
 	    } break;
             case 'M': {
-	    	enemies.push_back(shared_ptr<Enemy>(new Merchant()));
-            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+            	cells[row][k].addOccupant(shared_ptr<Enemy>(new Merchant()));
 	    } break;
             case 'D': {
-	    	enemies.push_back(shared_ptr<Enemy>(new Dragon()));
-            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+            	cells[row][k].addOccupant(shared_ptr<Enemy>(new Dragon()));
 	    } break;
             case 'X': {
-	    	enemies.push_back(shared_ptr<Enemy>(new Phoenix()));
-            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+            	cells[row][k].addOccupant(shared_ptr<Enemy>(new Phoenix()));
 	    } break;
             case 'T': {
-	    	enemies.push_back(shared_ptr<Enemy>(new Troll()));
-            	cells[row][k].addOccupant(enemies[enemies.size()-1]);
+            	cells[row][k].addOccupant(shared_ptr<Enemy>(new Troll()));
 	    } break;
 	}
     }
@@ -179,28 +167,22 @@ bool Floor::generateEnemy(){
     if (findCell(p)->getOccupierType() != None_ || findCell(p)->isStairs()) return false;
     else {
         if (enemyrand < enemyRates::W){
-            enemies.push_back(shared_ptr<Enemy>(new Werewolf()));
-            findCell(p)->addOccupant(enemies[enemies.size()-1]);
+            findCell(p)->addOccupant(shared_ptr<Enemy>(new Werewolf()));
         }
         else if (enemyrand < enemyRates::V){
-            enemies.push_back(shared_ptr<Enemy>(new Vampire()));
-            findCell(p)->addOccupant(enemies[enemies.size()-1]);
+            findCell(p)->addOccupant(shared_ptr<Enemy>(new Vampire()));
         }
         else if (enemyrand < enemyRates::N){
-            enemies.push_back(shared_ptr<Enemy>(new Goblin()));
-            findCell(p)->addOccupant(enemies[enemies.size()-1]);
+            findCell(p)->addOccupant(shared_ptr<Enemy>(new Goblin()));
         }
         else if (enemyrand < enemyRates::M){
-            enemies.push_back(shared_ptr<Enemy>(new Merchant()));
-            findCell(p)->addOccupant(enemies[enemies.size()-1]);
+            findCell(p)->addOccupant(shared_ptr<Enemy>(new Merchant()));
         }
         else if (enemyrand < enemyRates::X){
-            enemies.push_back(shared_ptr<Enemy>(new Phoenix()));
-            findCell(p)->addOccupant(enemies[enemies.size()-1]);
+            findCell(p)->addOccupant(shared_ptr<Enemy>(new Phoenix()));
         }
         else{
-            enemies.push_back(shared_ptr<Enemy>(new Troll()));
-            findCell(p)->addOccupant(enemies[enemies.size()-1]);
+            findCell(p)->addOccupant(shared_ptr<Enemy>(new Troll()));
         }
     }
     return true;
@@ -236,8 +218,7 @@ bool Floor::generateDragon(shared_ptr<Item> treasure){
     }
     if (possible.size() == 0) return false;
     int random = rand() % possible.size();
-    enemies.push_back(shared_ptr<Enemy>(new Dragon()));
-    findCell(possible[random])->addOccupant(enemies[enemies.size()-1]);
+    findCell(possible[random])->addOccupant(shared_ptr<Enemy>(new Dragon()));
     return true;
 }
 
@@ -277,7 +258,7 @@ void Floor::spawn(Player &player){
     // Generate Potions
     for (int i=0; i<10; i++){ if(!generatePotion()) i--; }
     for (int i=0; i<10; i++){ if(!generateGold()) i--; }
-    for (int i=enemies.size(); i<20; i++){ if(!generateEnemy()) i--; }
+    for (int i=0; i<20; i++){ if(!generateEnemy()) i--; }
 }
 
 void Floor::generateFloor(){
