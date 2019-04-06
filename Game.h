@@ -19,7 +19,7 @@ class Game{
     public:
 
         bool check_direction(std::string direction);
-        void start_game();
+        void start_game(string filename = "");
         Posn targetPosn(Posn p, std::string direction);
        // void start_game(Floor f);
 

@@ -105,6 +105,7 @@ void Cell::transfer(Cell *c) {
             case occType::Enemy_: c->addOccupant(occ.e); break;
 	    case occType::None_: break;
 	}
+	occ.occupierType = None_;
         occ.occupied = false;
         occ.e = nullptr; occ.i = nullptr; occ.p = nullptr;
     }

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <ctime>
 #include <string>
@@ -26,8 +27,7 @@ Posn Game::targetPosn(Posn p, string direction){
     return p;
 }
 
-void Game::start_game(){
-    cout << "Game started" << endl;
+void Game::start_game(string filename){
     string race, input;
     while (true) {
         cout << "Choose a race: (h/e/d/o)" << endl;
@@ -45,8 +45,17 @@ void Game::start_game(){
         while (level <= 5 ){
             Floor fl; /// ADD FLOOR GENERATION AND NECESSARY CODE HERE
 	    fl.generateFloor();
-	    fl.spawn(player);
-	    system("CLS");
+	    if (filename == "") fl.spawn(player);
+	    else {
+		ifstream inputFile (filename);
+        	string line;
+        	int rowCount = 0;
+        	while (getline(inputFile,line)) {
+            	    fl.addInput(line, rowCount, &player);
+            	    rowCount++;
+        	}
+        	inputFile.close();
+	    }
 	    fl.printDisplay(player);
 	    cout << "Player character has spawned." << endl;
             /// Loads default floor with random spawn
