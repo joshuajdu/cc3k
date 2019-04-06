@@ -54,7 +54,6 @@ void Game::start_game(){
                 Posn currentPosition = player.getPosn();
                 bool successfulCommand = false;
                 cin >> input;
-		fl.printDisplay(player);
                 if (input == "r") {level = 6; break;} /// to break out of 'level' loop
                 else if (input == "q") return;
                 else if (input == "u") {
@@ -82,6 +81,7 @@ void Game::start_game(){
                     }
                 }
                 if (successfulCommand) { fl.enemyTurn(player); } ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
+		fl.printDisplay(player);
 		if (!successfulCommand){
 		    cout << "Invalid Input" << endl;
 		}

@@ -51,6 +51,7 @@ public:
     void printDisplay(Player &player);
     void spawn(Player &player);
     void enemyTurn(Player &player);
+    void checkDeath();
 };
 
 #endif
