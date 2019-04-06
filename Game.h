@@ -2,8 +2,9 @@
 #define GAME_H
 
 #include <iostream>
+#include <string>
 
-#include "Game.h"
+#include "Posn.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
@@ -18,8 +19,8 @@ class Game{
     public:
 
         bool check_direction(std::string direction);
-        void start_game();
-        Posn targetPosn(Posn p, string direction);
+        void start_game(string filename = "");
+        Posn targetPosn(Posn p, std::string direction);
        // void start_game(Floor f);
 
     protected:

@@ -21,6 +21,8 @@ Cell::Cell(Posn p, cellType c, shared_ptr<Item> i): cellT{c}, pos{p}{
     occ.i = i;
 }
 
+bool Cell::hasMoved() { return moved; }
+
 void Cell::setStairs() {stairs = true; occ.occupied = true;}
 
 /// information-based functions
@@ -46,19 +48,20 @@ bool Cell::playerCanMove() {
 }
 
 bool Cell::enemyCanMove() {
-    return (!occupied() && cellT == cellType::tile);
+    return (!occupied() && cellT == cellType::tile && !moved);
 }
 
 void Cell::print(){
     if (this->occupied()) {
         switch (occ.occupierType) {
-        case occType::Player_: cout << "@"; break;
-        case occType::Enemy_: occ.e->print(); break;
-        case occType::Item_: occ.i->print(); break;
-        case occType::Gold_: occ.i->print(); break;
-        case occType::None_:
-            if (stairs && compass) cout << "\\";
-            else cout << ".";
+            case occType::Player_: cout << "@"; break;
+            case occType::Enemy_: occ.e->print(); break;
+            case occType::Item_: occ.i->print(); break;
+            case occType::Gold_: occ.i->print(); break;
+            case occType::None_: {
+                if (stairs && compass) cout << "\\";
+                else cout << ".";
+	    }
         }
     } else {
         switch (cellT) {
@@ -93,15 +96,37 @@ void Cell::addOccupant(shared_ptr<Item> i) {
     else occ.occupierType = occType::Item_;
 }
 
-void Cell::transfer(Cell &c) {
-    if (this->occupied() && !c.occupied()) {
-        c.addOccupant(occ.p);
-        c.addOccupant(occ.i);
-        c.addOccupant(occ.e);
+void Cell::transfer(Cell *c) {
+    if ((this->occupied() && !c->occupied()) || 
+	(this->getOccupierType() == occType::Player_ && c->getOccupierType() == Gold_)) {
+	switch (getOccupierType()) {
+	    case occType::Player_: {
+		if (c->getOccupierType() == Gold_){
+		    c->getItem()->useItem(*occ.p);
+		    c->removeOccupant();
+		}
+		c->addOccupant(occ.p);
+	    } break;
+            case occType::Gold_: c->addOccupant(occ.i); break;
+            case occType::Item_: c->addOccupant(occ.i); break;
+            case occType::Enemy_: c->addOccupant(occ.e); break;
+	    case occType::None_: break;
+	}
+	occ.occupierType = None_;
         occ.occupied = false;
         occ.e = nullptr; occ.i = nullptr; occ.p = nullptr;
     }
     moved = true;
+    c->moved = true;
+}
+
+void Cell::removeOccupant(){
+    
+    occ.occupierType = None_;
+    occ.occupied = false;
+    if (occ.e) occ.e.reset();
+    if (occ.i) occ.i.reset();
+    occ.e = nullptr; occ.i = nullptr; occ.p = nullptr;
 }
 
 void Cell::resetMove() { moved = false; }

@@ -47,12 +47,14 @@ public:
     bool playerCanMove();
     bool enemyCanMove();
     void print();
+    bool hasMoved();
 
     /// INTERACTION WITH OTHER OBJECTS
     void addOccupant(Player *p);
     void addOccupant(shared_ptr<Enemy> e);
     void addOccupant(shared_ptr<Item> i);
-    void transfer(Cell &c);
+    void removeOccupant();
+    void transfer(Cell *c);
     void compassFound();
     void resetMove();
 };

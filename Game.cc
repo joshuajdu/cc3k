@@ -1,6 +1,8 @@
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <ctime>
+#include <string>
 #include "Game.h"
 
 using namespace std;
@@ -13,17 +15,19 @@ bool Game::check_direction(string direction){
     return false;
 }
 
-Posn targetPosn(Posn p, string direction){
-    if (direction[0] == 'n') {p.y--;}
-    else if (direction[0] == 's') {p.y++;}
-    else if (direction[0] == 'w') {p.x--; return p;}
-    if (direction[1] == 'e') {p.x++;}
-    else if (direction[1] == 'w') {p.x--;}
+Posn Game::targetPosn(Posn p, string direction){
+    if (direction == "no") {p.y--;}
+    else if (direction == "so") {p.y++;}
+    else if (direction == "ea") {p.x++;}
+    else if (direction == "we") {p.x--;}
+    else if (direction == "ne") {p.y--; p.x++;}
+    else if (direction == "nw") {p.y--; p.x--;}
+    else if (direction == "se") {p.y++; p.x++;}
+    else if (direction == "sw") {p.y++; p.x--;}
     return p;
 }
 
-void Game::start_game(){
-    cout << "Game started" << endl;
+void Game::start_game(string filename){
     string race, input;
     while (true) {
         cout << "Choose a race: (h/e/d/o)" << endl;
@@ -37,15 +41,27 @@ void Game::start_game(){
         else if (race == "o"){
             player = Orc();
         }
-        cout << "I am a " << player.get_race() << endl;
         int level = 1;
         while (level <= 5 ){
             Floor fl; /// ADD FLOOR GENERATION AND NECESSARY CODE HERE
 	    fl.generateFloor();
-	    fl.spawn(player);            
+	    if (filename == "") fl.spawn(player);
+	    else {
+		ifstream inputFile (filename);
+        	string line;
+        	int rowCount = 0;
+        	while (getline(inputFile,line)) {
+            	    fl.addInput(line, rowCount, &player);
+            	    rowCount++;
+        	}
+        	inputFile.close();
+	    }
+	    fl.printDisplay(player);
+	    cout << "Player character has spawned." << endl;
             /// Loads default floor with random spawn
             bool floor_not_complete = true;
             while (floor_not_complete && *player.get_hp() > 0) {
+		fl.resetMove();
                 Posn currentPosition = player.getPosn();
                 bool successfulCommand = false;
                 cin >> input;
@@ -56,6 +72,7 @@ void Game::start_game(){
                     if (check_direction(input)) {
                         if (fl.findCell(targetPosn(currentPosition, input))->getItem()) {
                             fl.findCell(targetPosn(currentPosition, input))->getItem()->useItem(player);
+			    fl.findCell(targetPosn(currentPosition, input))->removeOccupant();
                             successfulCommand = true;
                         }
                     }
@@ -63,18 +80,26 @@ void Game::start_game(){
                     cin >> input;
                     if (check_direction(input)) {
                         if (fl.findCell(targetPosn(currentPosition, input))->getOccupierType() == occType::Enemy_) {
-                            player.Damage(fl.findCell(targetPosn(currentPosition,input))->getEnemy());
-                            successfulCommand = true;
+			    fl.findCell(targetPosn(currentPosition,input))->getEnemy()->Damage(player);
+                            cout << *fl.findCell(targetPosn(currentPosition,input))->getEnemy()->get_hp();
+			    successfulCommand = true;
+			    fl.checkDeath();
                         }
                     }
                 } else if (check_direction(input)) {
                     if (fl.findCell(targetPosn(currentPosition, input))->playerCanMove()) {
-                        fl.findCell(currentPosition)->transfer(fl.findCell(targetPosn(currentPosition, input))); /// ### CELL.CC TRANSFER MUST BE CHANGED!!!
-                        successfulCommand = true;                                                          /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
+			player.setPosn(targetPosn(currentPosition, input));
+                        fl.findCell(currentPosition)->transfer(fl.findCell(player.getPosn()));
+                        successfulCommand = true; /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
                     }
                 }
-                if (successfulCommand) {} ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
+                if (successfulCommand) { fl.enemyTurn(player); } ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
+		fl.printDisplay(player);
+		if (!successfulCommand){
+		    cout << "Invalid Input" << endl;
+		}
             }
+	    if (*player.get_hp() == 0) level = 6;
             level++;
         }
     }

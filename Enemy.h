@@ -23,7 +23,7 @@ class Enemy
         bool playerInRange(Player &p);
         string get_race();
         int *get_hp();
-        int* get_atk();
+        int *get_atk();
         Posn getPosn();
 	virtual void print() = 0;
 
