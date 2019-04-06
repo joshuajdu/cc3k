@@ -1,8 +1,6 @@
 #include <iostream>
-
 #include <cstdlib>
 #include <ctime>
-
 #include "Game.h"
 
 using namespace std;
@@ -15,108 +13,69 @@ bool Game::check_direction(string direction){
     return false;
 }
 
-void Game::user_turn(){
-
-    string command;
-
-    cin >> command;
-
-    if (check_direction(command)){
-        //move
-    }
-
-    else if (command == "u"){
-        //use potion
-
-    }
-    else if (command == "a"){
-        //attack enemy
-    }
-    else if (command == "r"){
-        //restart game
-
-    }
-    else if (command == "q"){
-        //quit the game
-    }
-}
-
-Posn Game::get_position(int chamber){
-    Posn position{0,0};
-    if (chamber == 1){
-        position = a.randomCell();
-    }
-    else if (chamber == 2){
-        position = b.randomCell();
-    }
-    else if (chamber == 3){
-        position = c.randomCell();
-    }
-    else if (chamber == 4){
-        position = d.randomCell();
-    }
-    else{
-        position = e.randomCell();
-    }
-    return position;
-}
-
-void Game::start_floor(){
-
-    int chamber_number = rand() % 5 + 1;
-
-
-   // Posn start_position{0,0};
-
-    Posn start_position = get_position(chamber_number);
-
-    cout << "Start: " << chamber_number << " Position: " << start_position.x << " " << start_position.y << endl;
-
-    player.set_position(start_position);
-
-    int stairs_number = chamber_number;
-
-    while (stairs_number == chamber_number){
-        stairs_number = rand() % 5 + 1;
-    }
-
-    Posn stairs_position = get_position(stairs_number);
-
-    cout << "Stairs: " << stairs_number << " Position: " << stairs_position.x << " " << stairs_position.y << endl << endl;
-
-
-
+Posn targetPosn(Posn p, string direction){
+    if (direction[0] == 'n') {p.y--;}
+    else if (direction[0] == 's') {p.y++;}
+    else if (direction[0] == 'w') {p.x--; return p;}
+    if (direction[1] == 'e') {p.x++;}
+    else if (direction[1] == 'w') {p.x--;}
+    return p;
 }
 
 void Game::start_game(){
-
-    generateDefaultChambers(a, b, c, d, e);
-
     cout << "Game started" << endl;
-
-
-    string race;
-
-    cout << "Choose a race: (h/e/d/o)" << endl;
-    cin >> race;
-
-    if (race == "e"){
-        player = Elf();
-    }
-    else if (race == "d"){
-        player = Dwarf();
-    }
-    else if (race == "o"){
-        player = Orc();
-    }
-
-    cout << "I am a " << player.get_race() << endl;
-
-    int level = 1;
-    while (level < 6 && *player.get_hp() > 0){
-        start_floor();
-        level++;
+    string race, input;
+    while (true) {
+        cout << "Choose a race: (h/e/d/o)" << endl;
+        cin >> race;
+        if (race == "e"){
+            player = Elf();
+        }
+        else if (race == "d"){
+            player = Dwarf();
+        }
+        else if (race == "o"){
+            player = Orc();
+        }
+        cout << "I am a " << player.get_race() << endl;
+        int level = 1;
+        while (level <= 5 ){
+            Floor fl; /// ADD FLOOR GENERATION AND NECESSARY CODE HERE
+	    fl.generateFloor();
+	    fl.spawn(player);            
+            /// Loads default floor with random spawn
+            bool floor_not_complete = true;
+            while (floor_not_complete && *player.get_hp() > 0) {
+                Posn currentPosition = player.getPosn();
+                bool successfulCommand = false;
+                cin >> input;
+                if (input == "r") {level = 6; break;} /// to break out of 'level' loop
+                else if (input == "q") return;
+                else if (input == "u") {
+                    cin >> input;
+                    if (check_direction(input)) {
+                        if (fl.findCell(targetPosn(currentPosition, input))->getItem()) {
+                            fl.findCell(targetPosn(currentPosition, input))->getItem().useItem(&player); /// use item
+                            sucessfulCommand = true;
+                        }
+                    }
+                } else if (input == "a") {
+                    cin >> input;
+                    if (check_direction(input)) {
+                        if (fl.findCell(targetPosn(currentPosition, input))->getOccupierType() == occType::Enemy_) {
+                            player.Damage(fl.findCell(targetPosn(currentPosition,input))->getEnemy());
+                            successfulCommand = true;
+                        }
+                    }
+                } else if (check_direction(input)) {
+                    if (fl.findCell(targetPosn(currentPosition, input))->playerCanMove()) {
+                        fl.findCell(currentPosition)->transfer(fl.findCell(targetPosn(currentPosition, input))); /// ### CELL.CC TRANSFER MUST BE CHANGED!!!
+                        successfulCommand = true;                                                          /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
+                    }
+                }
+                if (successfulCommand) {} ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
+            }
+            level++;
+        }
     }
 }
-
-

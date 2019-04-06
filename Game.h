@@ -17,11 +17,8 @@ class Game{
     public:
 
         bool check_direction(std::string direction);
-        void user_turn();
-
-        void start_floor();
         void start_game();
-        Posn get_position(int chamber);
+        Posn targetPosn(Posn p, string direction);
        // void start_game(Floor f);
 
     protected:
