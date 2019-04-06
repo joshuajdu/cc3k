@@ -55,8 +55,8 @@ void Game::start_game(){
                     cin >> input;
                     if (check_direction(input)) {
                         if (fl.findCell(targetPosn(currentPosition, input))->getItem()) {
-                            fl.findCell(targetPosn(currentPosition, input))->getItem().useItem(&player); /// use item
-                            sucessfulCommand = true;
+                            fl.findCell(targetPosn(currentPosition, input))->getItem()->useItem(player);
+                            successfulCommand = true;
                         }
                     }
                 } else if (input == "a") {

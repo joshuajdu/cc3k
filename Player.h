@@ -4,6 +4,7 @@
 #include <string>
 #include <stdlib.h>
 #include <iostream>
+#include <memory>
 //#include "Enemy.h"
 #include "Posn.h"
 
@@ -17,7 +18,7 @@ class Player
         Player(int hp = 140, int attack = 20, int defence = 20, string race = "Human", int x = 0, int y = 0);
 
         void Move(string direction);
-        void Damage(Enemy &e);
+        void Damage(std::shared_ptr<Enemy> e);
         //void pickupItem(const Item &item);
         //virtual void pickupTreasure(const Treasure &treasure) = 0;
         //virtual void usePotion(const Potion &potion) = 0;

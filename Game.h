@@ -11,6 +11,7 @@
 #include "Treasure.h"
 #include "Cell.h"
 #include "Chamber.h"
+#include "Floor.h"
 
 class Game{
 

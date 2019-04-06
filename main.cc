@@ -12,6 +12,7 @@
 #include "Cell.h"
 #include "Chamber.h"
 #include "Floor.h"
+#include "Game.h"
 
 using namespace std;
 
