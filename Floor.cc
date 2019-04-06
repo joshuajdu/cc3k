@@ -7,6 +7,83 @@
 
 using namespace std;
 
+void Floor::printDisplay(Player &player){
+    for(int i=0; i<(int)cells.size(); i++){
+        for (int j=0; j<(int)cells[0].size(); j++){
+            cells[i][j].print();
+        }
+        cout << endl;
+    }
+    cout << "Race: " << player.get_race() << " Gold: " << *player.get_gold();
+    cout << "                                                  Floor 1" << endl;
+    cout << "Hp: " << *player.get_hp() << endl;
+    cout << "Atk: " << *player.get_atk() << endl;
+    cout << "Def: " << *player.get_def() << endl;
+    cout << "Action: ";
+}
+
+Posn Floor::targetPosn(Posn p, int direction){
+    if (direction == 0) {p.y--;}
+    else if (direction == 1) {p.y++;}
+    else if (direction == 2) {p.x++;}
+    else if (direction == 3) {p.x--;}
+    else if (direction == 4) {p.y--; p.x++;}
+    else if (direction == 5) {p.y--; p.x--;}
+    else if (direction == 6) {p.y++; p.x++;}
+    else if (direction == 7) {p.y++; p.x--;}
+    return p;
+}
+
+bool Floor::playerInRange(Posn p){
+    for (int i=-1; i<=1; i++){
+	for (int j=-1; j<=1; j++){
+	    Posn here = Posn(p.x + i, p.y + j);
+	    if (findCell(here)->getOccupierType() == 0){
+		return true;
+	    }
+	}
+    }
+    return false;
+}
+
+vector<Posn> Floor::enemyMovable(Posn p){
+    vector<Posn> returnval;
+    for (int i=-1; i<=1; i++){
+	for (int j=-1; j<=1; j++){
+	    Posn here = Posn(p.x + i, p.y + j);
+	    if (findCell(here)->enemyCanMove()){
+		returnval.push_back(here);
+	    }
+	}
+    }
+    return returnval;
+}
+
+void Floor::moveEnemy(Posn pos, Player &player){
+    if (findCell(pos)->getOccupierType() == 1 && !findCell(pos)->hasMoved()){
+	if (playerInRange(pos)){
+	    findCell(pos)->getEnemy()->Damage(player);
+	}
+	else{
+	    vector<Posn> movable = enemyMovable(pos);
+	    if (movable.size() != 0){
+    	    	int moveRand = rand()%movable.size();
+    	    	Posn target = movable[moveRand];
+    	    	findCell(pos)->transfer(findCell(target));
+	    }
+	}
+    }       
+}
+
+void Floor::enemyTurn(Player &player){
+    for (int i=0; i<int(cells.size()); i++){
+	for (int j=0; j<int(cells[0].size()); j++){
+	    Posn p = Posn(j,i);
+	    moveEnemy(p, player);
+	}
+    }
+}
+
 void Floor::addInput(string line, int row, Player* player){
      for (int k = 0; k < (int)cells[row].size(); k++) {
         char cellInput = line[k];
@@ -216,15 +293,6 @@ void Floor::generateFloor(){
 	    }
 	}
     cells.push_back(rowCells);
-    }
-}
-
-void Floor::printDisplay(){
-    for(int i=0; i<(int)cells.size(); i++){
-	for (int j=0; j<(int)cells[0].size(); j++){
-	    cells[i][j].print();
-	}
-	cout << endl;
     }
 }
 

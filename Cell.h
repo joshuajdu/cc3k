@@ -47,6 +47,7 @@ public:
     bool playerCanMove();
     bool enemyCanMove();
     void print();
+    bool hasMoved();
 
     /// INTERACTION WITH OTHER OBJECTS
     void addOccupant(Player *p);

@@ -39,14 +39,18 @@ class Floor{
     bool generateGold();
     bool generateDragon(shared_ptr<Item> treasure);
     Posn randomCellChamber(int chamber = -1);
+    Posn targetPosn(Posn p, int direction);
+    bool playerInRange(Posn p);
+    vector<Posn> enemyMovable(Posn p);
+    void moveEnemy(Posn pos, Player &player);
 
 public:
     void generateFloor();
     void addInput(std::string line, int x, Player* player);
     Cell* findCell(Posn p);
-    void printDisplay();
+    void printDisplay(Player &player);
     void spawn(Player &player);
-    void moveEnemy(shared_ptr<Enemy>);
+    void enemyTurn(Player &player);
 };
 
 #endif

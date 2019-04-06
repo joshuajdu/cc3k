@@ -21,6 +21,8 @@ Cell::Cell(Posn p, cellType c, shared_ptr<Item> i): cellT{c}, pos{p}{
     occ.i = i;
 }
 
+bool Cell::hasMoved() { return moved; }
+
 void Cell::setStairs() {stairs = true; occ.occupied = true;}
 
 /// information-based functions
@@ -46,19 +48,20 @@ bool Cell::playerCanMove() {
 }
 
 bool Cell::enemyCanMove() {
-    return (!occupied() && cellT == cellType::tile);
+    return (!occupied() && cellT == cellType::tile && !moved);
 }
 
 void Cell::print(){
     if (this->occupied()) {
         switch (occ.occupierType) {
-        case occType::Player_: cout << "@"; break;
-        case occType::Enemy_: occ.e->print(); break;
-        case occType::Item_: occ.i->print(); break;
-        case occType::Gold_: occ.i->print(); break;
-        case occType::None_:
-            if (stairs && compass) cout << "\\";
-            else cout << ".";
+            case occType::Player_: cout << "@"; break;
+            case occType::Enemy_: occ.e->print(); break;
+            case occType::Item_: occ.i->print(); break;
+            case occType::Gold_: occ.i->print(); break;
+            case occType::None_: {
+                if (stairs && compass) cout << "\\";
+                else cout << ".";
+	    }
         }
     } else {
         switch (cellT) {
@@ -100,6 +103,7 @@ void Cell::transfer(Cell *c) {
             case occType::Gold_: c->addOccupant(occ.i); break;
             case occType::Item_: c->addOccupant(occ.i); break;
             case occType::Enemy_: c->addOccupant(occ.e); break;
+	    case occType::None_: break;
 	}
         occ.occupied = false;
         occ.e = nullptr; occ.i = nullptr; occ.p = nullptr;
