@@ -80,7 +80,8 @@ void Game::start_game(string filename){
                     if (check_direction(input)) {
                         if (fl.findCell(targetPosn(currentPosition, input))->getOccupierType() == occType::Enemy_) {
 			    fl.findCell(targetPosn(currentPosition,input))->getEnemy()->Damage(player);
-                            successfulCommand = true;
+                            cout << *fl.findCell(targetPosn(currentPosition,input))->getEnemy()->get_hp();
+			    successfulCommand = true;
 			    fl.checkDeath();
                         }
                     }
