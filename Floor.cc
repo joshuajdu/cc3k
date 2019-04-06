@@ -165,7 +165,8 @@ void Floor::spawn(Player &player){
 	stairsChamber = rand() % 5;
     }
     // Put Player in cell
-    findCell(randomCellChamber(playerChamber))->addOccupant(&player);
+    player.setPosn(randomCellChamber(playerChamber));
+    findCell(player.getPosn())->addOccupant(&player);
     // Put Stairway in cell
     findCell(randomCellChamber(stairsChamber))->setStairs();
     // Generate Potions

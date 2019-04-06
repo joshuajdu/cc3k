@@ -30,10 +30,9 @@ void useItem(Player &a, Item &p){
 
 int main(int argc, char* argv[]){
     srand(time(NULL));
-    Player player;
-    Floor temp;
-    temp.generateFloor();
-    if (argc == 2) {
+    Game game;
+    game.start_game();
+    /*if (argc == 2) {
         ifstream inputFile (argv[1]);
         string line;
         int rowCount = 0;
@@ -44,6 +43,6 @@ int main(int argc, char* argv[]){
         inputFile.close();
     }
     else temp.spawn(player);
-    temp.printDisplay();
+    temp.printDisplay();*/
     return 0;
 }

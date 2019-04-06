@@ -46,6 +46,7 @@ public:
     Cell* findCell(Posn p);
     void printDisplay();
     void spawn(Player &player);
+    void moveEnemy(shared_ptr<Enemy>);
 };
 
 #endif

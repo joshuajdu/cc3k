@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <string>
 #include "Game.h"
 
 using namespace std;
@@ -13,12 +14,15 @@ bool Game::check_direction(string direction){
     return false;
 }
 
-Posn targetPosn(Posn p, string direction){
-    if (direction[0] == 'n') {p.y--;}
-    else if (direction[0] == 's') {p.y++;}
-    else if (direction[0] == 'w') {p.x--; return p;}
-    if (direction[1] == 'e') {p.x++;}
-    else if (direction[1] == 'w') {p.x--;}
+Posn Game::targetPosn(Posn p, string direction){
+    if (direction == "no") {p.y--;}
+    else if (direction == "so") {p.y++;}
+    else if (direction == "ea") {p.x++;}
+    else if (direction == "we") {p.x--;}
+    else if (direction == "ne") {p.y--; p.x++;}
+    else if (direction == "nw") {p.y--; p.x--;}
+    else if (direction == "se") {p.y++; p.x++;}
+    else if (direction == "sw") {p.y++; p.x--;}
     return p;
 }
 
@@ -46,6 +50,7 @@ void Game::start_game(){
             /// Loads default floor with random spawn
             bool floor_not_complete = true;
             while (floor_not_complete && *player.get_hp() > 0) {
+		fl.printDisplay();
                 Posn currentPosition = player.getPosn();
                 bool successfulCommand = false;
                 cin >> input;
@@ -70,7 +75,7 @@ void Game::start_game(){
                 } else if (check_direction(input)) {
                     if (fl.findCell(targetPosn(currentPosition, input))->playerCanMove()) {
                         fl.findCell(currentPosition)->transfer(fl.findCell(targetPosn(currentPosition, input))); /// ### CELL.CC TRANSFER MUST BE CHANGED!!!
-                        successfulCommand = true;                                                          /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
+                        successfulCommand = true; /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
                     }
                 }
                 if (successfulCommand) {} ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT

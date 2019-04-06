@@ -51,6 +51,10 @@ Posn Player::getPosn(){
     return p;
 }
 
+void Player::setPosn(Posn p){
+    this->p = p;
+}
+
 void Player::Move(string direction){
     if (direction == "no"){
         p.y++;

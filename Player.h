@@ -35,6 +35,7 @@ class Player
 
         string get_race();
         Posn getPosn();
+	void setPosn(Posn p);
         void Position();
 
     protected:
