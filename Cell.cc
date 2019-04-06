@@ -121,7 +121,11 @@ void Cell::transfer(Cell *c) {
 }
 
 void Cell::removeOccupant(){
+    
+    occ.occupierType = None_;
     occ.occupied = false;
+    if (occ.e) occ.e.reset();
+    if (occ.i) occ.i.reset();
     occ.e = nullptr; occ.i = nullptr; occ.p = nullptr;
 }
 
