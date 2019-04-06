@@ -90,10 +90,10 @@ void Player::Position(){
 }
 
 
-void Player::Damage(Enemy &e){
+void Player::Damage(shared_ptr<Enemy> e){
     //ceiling ((100/100+ def(defender)) * atk (attacker))
 
-    double dmg = 100.0/(100+def) * (*e.get_atk());
+    double dmg = 100.0/(100+def) * (*e->get_atk());
     dmg = ceil(dmg);
 
     int x = (int)dmg;
@@ -103,7 +103,7 @@ void Player::Damage(Enemy &e){
         hp = 0;
     }
 
-    cout << "Attack: " << (*e.get_atk()) << " Defence: " << def << endl;
+    cout << "Attack: " << (*e->get_atk()) << " Defence: " << def << endl;
     cout << "Damage done:" << dmg << endl;
 }
 
