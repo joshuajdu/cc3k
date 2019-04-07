@@ -107,7 +107,7 @@ string Player::Damage(shared_ptr<Enemy> e){
         hp = 0;
     }
     
-    return " " + e->get_race() + " deals " + std::to_string(x) + " damage to PC.\n";
+    return "\n        " + e->get_race() + " deals " + std::to_string(x) + " damage to PC.";
 }
 
 

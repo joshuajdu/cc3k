@@ -108,7 +108,7 @@ string Floor::moveEnemy(Posn pos, Player &player){
 	if (playerInRange(pos) && findCell(pos)->getEnemy()->isAggressive()){
 	    int atkrand = rand()%2;
 	    if (atkrand == 0) {action += player.Damage(findCell(pos)->getEnemy());}
-            else {action += " " + findCell(pos)->getEnemy()->get_race() + " misses.\n";}
+            else {action += "\n        " + findCell(pos)->getEnemy()->get_race() + " misses.";}
 	}
 	else{
 	    if (findCell(pos)->getEnemy()->get_race() != "Dragon"){

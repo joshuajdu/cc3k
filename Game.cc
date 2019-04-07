@@ -179,7 +179,14 @@ void Game::start_game(string filename){
 		    cout << "Invalid Input.\n> ";
 		}
             }
-	    if (*player.get_hp() == 0) break;
+	    if (*player.get_hp() == 0) {
+                
+                cout << "======================================\n";
+                cout << "         You lost. Try again!\n";
+                cout << "======================================\n\n";
+
+                break;
+            }
             level++;
         }
         if (level == 6) {
