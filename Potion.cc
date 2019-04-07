@@ -21,6 +21,11 @@ void RH::useItem(Player &p){
     else *hp = *hp + 10;
 }
 
+string RH::actionPrint() {
+    if (!found) return "an unknown potion";
+    else return "a " + getName() + " potion";
+}
+
 bool RH::foundItem(){ return found; }
 
 BA::BA(int x, int y): Potion(x, y, "BA") {}
@@ -28,6 +33,11 @@ BA::BA(int x, int y): Potion(x, y, "BA") {}
 void BA::useItem(Player &p){
     found = true;
     *p.get_atk() = *p.get_atk() + 5;
+}
+
+string BA::actionPrint() {
+    if (!found) return "an unknown potion";
+    else return "a " + getName() + " potion";
 }
 
 bool BA::foundItem(){ return found; }
@@ -40,6 +50,11 @@ void BD::useItem(Player &p){
 }
 
 bool BD::foundItem(){ return found; }
+
+string BD::actionPrint() {
+    if (!found) return "an unknown potion";
+    else return "a " + getName() + " potion";
+}
 
 PH::PH(int x, int y): Potion(x, y, "PH") {}
 
@@ -54,6 +69,11 @@ void PH::useItem(Player &p){
         if (*hp - 10 < 0) *hp = 0;
     	else *hp = *hp - 10;
     }
+}
+
+string PH::actionPrint() {
+    if (!found) return "an unknown potion";
+    else return "a " + getName() + " potion";
 }
 
 bool PH::foundItem(){ return found; }
@@ -72,6 +92,11 @@ void WA::useItem(Player &p){
     }
 }
 
+string WA::actionPrint() {
+    if (!found) return "an unknown potion";
+    else return "a " + getName() + " potion";
+}
+
 bool WA::foundItem(){ return found; }
 
 WD::WD(int x, int y): Potion(x, y, "WD") {}
@@ -86,6 +111,11 @@ void WD::useItem(Player &p){
     	if (*def - 5 < 0) *def = 0;
     	else *def = *def - 5;
     }
+}
+
+string WD::actionPrint() {
+    if (!found) return "an unknown potion";
+    else return "a " + getName() + " potion";
 }
 
 bool WD::foundItem(){ return found; }

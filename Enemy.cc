@@ -31,7 +31,7 @@ bool Enemy::isAggressive(){
     return true;
 }
 
-void Enemy::Damage(Player &p){
+string Enemy::Damage(Player &p){
     //ceiling ((100/100+ def(defender)) * atk (attacker))
     ChangeAggro();
     double dmg = 100.0/(100+def) * (*p.get_atk());
@@ -44,9 +44,8 @@ void Enemy::Damage(Player &p){
         hp = 0;
     }
 
-    cout << "Attack: " << (*p.get_atk()) << " Defence: " << def << endl;
-    cout << "Damage done:" << dmg << endl;
-
+    return "PC deals " + to_string(x) + " damage to "
+		       + race + " (" + to_string(hp) + " HP).";
 }
 
 void Enemy::ChangeAggro() {}

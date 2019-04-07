@@ -16,6 +16,7 @@ public:
     virtual void useItem(Player &p) = 0;
     virtual void print() = 0;
     virtual bool isTreasure() = 0;
+    virtual std::string actionPrint() = 0;
 };
 
 #endif

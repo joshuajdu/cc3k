@@ -41,7 +41,7 @@ class Floor{
     Posn targetPosn(Posn p, int direction);
     bool playerInRange(Posn p);
     vector<Posn> enemyMovable(Posn p);
-    void moveEnemy(Posn pos, Player &player);
+    std::string moveEnemy(Posn pos, Player &player);
 
 public:
     void spawnCompass();
@@ -52,7 +52,7 @@ public:
     Cell* findCell(Posn p);
     void printDisplay(Player &player, int floorNum);
     void spawn(Player &player);
-    void enemyTurn(Player &player);
+    std::string enemyTurn(Player &player);
     bool checkDeath();
 };
 

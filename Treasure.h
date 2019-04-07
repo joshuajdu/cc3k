@@ -10,6 +10,7 @@ public:
     virtual void useItem(Player &p);
     virtual void print();
     bool isTreasure();
+    virtual std::string actionPrint();
 };
 
 class BarrierSuit: public Treasure{
@@ -17,5 +18,6 @@ public:
     BarrierSuit(int x, int y);
     void print();
     void useItem(Player &p);
+    std::string actionPrint();
 };
 #endif

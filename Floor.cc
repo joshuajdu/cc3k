@@ -119,11 +119,13 @@ vector<Posn> Floor::enemyMovable(Posn p){
     return returnval;
 }
 
-void Floor::moveEnemy(Posn pos, Player &player){
+string Floor::moveEnemy(Posn pos, Player &player){
+    string action = "";
     if (findCell(pos)->getOccupierType() == 1 && !findCell(pos)->hasMoved()){
 	if (playerInRange(pos) && findCell(pos)->getEnemy()->isAggressive()){
 	    int atkrand = rand()%2;
-	    if (atkrand == 0) player.Damage(findCell(pos)->getEnemy());
+	    if (atkrand == 0) action += player.Damage(findCell(pos)->getEnemy());
+	    else action += "\n        " + findCell(pos)->getEnemy()->get_race() + " misses.";
 	}
 	else{
 	    if (findCell(pos)->getEnemy()->get_race() != "Dragon"){
@@ -135,16 +137,19 @@ void Floor::moveEnemy(Posn pos, Player &player){
 	    	}
 	    }
 	}
-    }       
+    }
+    return action;
 }
 
-void Floor::enemyTurn(Player &player){
+string Floor::enemyTurn(Player &player){
+    string action = "";
     for (int i=0; i<int(cells.size()); i++){
 	for (int j=0; j<int(cells[0].size()); j++){
 	    Posn p = Posn(j,i);
-	    moveEnemy(p, player);
+	    action += moveEnemy(p, player);
 	}
     }
+    return action;
 }
 
 void Floor::addInput(string line, int row, Player* player){
