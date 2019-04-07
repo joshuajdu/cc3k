@@ -44,6 +44,7 @@ class Floor{
     void moveEnemy(Posn pos, Player &player);
 
 public:
+    bool dragonInRange(Posn p);
     void resetMove();
     void generateFloor();
     void addInput(std::string line, int x, Player* player);

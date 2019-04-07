@@ -87,7 +87,9 @@ void Game::start_game(string filename){
                         }
                     }
                 } else if (check_direction(input)) {
-                    if (fl.findCell(targetPosn(currentPosition, input))->playerCanMove()) {
+                    if (fl.findCell(targetPosn(currentPosition, input))->playerCanMove() &&
+			(fl.findCell(targetPosn(currentPosition, input))->getOccupierType() != Gold_ 
+			|| !fl.dragonInRange(targetPosn(currentPosition, input)))) {
 			player.setPosn(targetPosn(currentPosition, input));
                         fl.findCell(currentPosition)->transfer(fl.findCell(player.getPosn()));
                         successfulCommand = true; /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
