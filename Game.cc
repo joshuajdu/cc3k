@@ -170,7 +170,7 @@ void Game::start_game(string filename){
                     }
                 }
                 if (successfulCommand) { action += fl.enemyTurn(player); } 
-		fl.printDisplay(player, level);
+		//fl.printDisplay(player, level);
 		if (!successfulCommand){
 		    cout << "Invalid Input.\n> " << endl;
 		}
