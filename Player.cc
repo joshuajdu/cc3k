@@ -21,6 +21,10 @@ void Player::resetPlayer(){
     def = basedef;
 }
 
+void Player::getCompass(){
+    compass = true;
+}
+
 int Player::get_maxhp(){
     return maxhp;
 }

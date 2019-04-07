@@ -21,6 +21,7 @@ class Enemy
         //virtual void Move(string direction) = 0;
         string Damage(Player &p);
         bool playerInRange(Player &p);
+	bool hasCompass();
         string get_race();
         int *get_hp();
         int *get_atk();

@@ -54,7 +54,7 @@ public:
     void printDisplay(Player &player, int floorNum);
     void spawn(Player &player);
     std::string enemyTurn(Player &player);
-    bool checkDeath();
+    bool checkDeath(Player &player);
 };
 
 #endif

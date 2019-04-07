@@ -55,13 +55,16 @@ void Floor::spawnCompass(){
     }
 }
 
-bool Floor::checkDeath(){
+bool Floor::checkDeath(Player &player){
     for (int i=0; i<(int)cells.size(); i++){
 	for (int j=0; j<(int)cells[0].size(); j++){
 	    Posn temp = Posn(j,i);
 	    if (findCell(temp)->getOccupierType() == 1){
 		if (*findCell(temp)->getEnemy()->get_hp() <= 0){
 		    string race = findCell(temp)->getEnemy()->get_race();
+		    if (findCell(temp)->getEnemy()->hasCompass()){
+			findCell(temp)->compassFound();
+		    }
 		    findCell(temp)->removeOccupant();
 		    if (race == "Merchant"){
 			findCell(temp)->addOccupant(shared_ptr<Item>(new Treasure(j, i, 4)));

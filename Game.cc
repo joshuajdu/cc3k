@@ -125,7 +125,7 @@ void Game::start_game(string filename){
                         if (fl.findCell(targetPosn(currentPosition, input))->getOccupierType() == occType::Enemy_) {
 			    action = fl.findCell(targetPosn(currentPosition,input))->getEnemy()->Damage(player);
 			    successfulCommand = true;
-			    if (fl.checkDeath()) {*player.get_gold() += 1;}
+			    if (fl.checkDeath(player)) {*player.get_gold() += 1;}
                         }
                     }
                 } else if (check_direction(input)) {
@@ -184,6 +184,7 @@ void Game::start_game(string filename){
 	    }
             level++;
 	    player.resetPlayer();
+	    fl.findCell(player.getPosn())->resetCompass();
         }
 	if (level == 6) {
             int gold = *player.get_gold();

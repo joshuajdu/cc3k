@@ -56,6 +56,7 @@ public:
     void removeOccupant();
     void transfer(Cell *c);
     void compassFound();
+    void resetCompass();
     void resetMove();
 };
 #endif
