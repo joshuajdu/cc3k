@@ -27,6 +27,7 @@ class Enemy
         Posn getPosn();
 	virtual void print() = 0;
 	virtual bool isAggressive();
+	virtual void ChangeAggro();
 
     protected:
 

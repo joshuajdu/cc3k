@@ -31,7 +31,7 @@ bool Enemy::isAggressive(){
 
 void Enemy::Damage(Player &p){
     //ceiling ((100/100+ def(defender)) * atk (attacker))
-
+    ChangeAggro();
     double dmg = 100.0/(100+def) * (*p.get_atk());
     dmg = ceil(dmg);
 
@@ -46,6 +46,8 @@ void Enemy::Damage(Player &p){
     cout << "Damage done:" << dmg << endl;
 
 }
+
+void Enemy::ChangeAggro() {}
 
 bool Enemy::playerInRange(Player &p){
 

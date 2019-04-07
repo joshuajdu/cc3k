@@ -44,7 +44,6 @@ bool Floor::checkDeath(){
 		if (*findCell(temp)->getEnemy()->get_hp() <= 0){
 		    string race = findCell(temp)->getEnemy()->get_race();
 		    findCell(temp)->removeOccupant();
-		    cout << "Enemy Slain: ";
 		    if (race != "Dragon" && race != "Merchant") {return true;}
 		}
 	    }

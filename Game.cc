@@ -84,7 +84,6 @@ void Game::start_game(string filename){
                     if (check_direction(input)) {
                         if (fl.findCell(targetPosn(currentPosition, input))->getOccupierType() == occType::Enemy_) {
 			    fl.findCell(targetPosn(currentPosition,input))->getEnemy()->Damage(player);
-                            cout << *fl.findCell(targetPosn(currentPosition,input))->getEnemy()->get_hp();
 			    successfulCommand = true;
 			    if (fl.checkDeath()) {*player.get_gold() += 1;}
                         }
