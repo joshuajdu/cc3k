@@ -89,7 +89,6 @@ void Game::start_game(string filename){
         	}
         	inputFile.close();
 	    }
-	    fl.printDisplay(player, level);
 	    if (level == 1) { cout << "Player character has spawned." << endl; }
 	    else {action += "and has descended to floor "; action += to_string(level) += ".";}
             /// Loads default floor with random spawn

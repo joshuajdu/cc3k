@@ -62,6 +62,9 @@ bool Floor::checkDeath(){
 		if (*findCell(temp)->getEnemy()->get_hp() <= 0){
 		    string race = findCell(temp)->getEnemy()->get_race();
 		    findCell(temp)->removeOccupant();
+		    if (race == "Merchant"){
+			findCell(temp)->addOccupant(shared_ptr<Item>(new Treasure(j, i, 4)));
+		    }
 		    if (race != "Dragon" && race != "Merchant") {return true;}
 		}
 	    }
