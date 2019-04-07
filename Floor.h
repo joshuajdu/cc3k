@@ -40,6 +40,7 @@ class Floor{
     Posn randomCellChamber(int chamber = -1);
     Posn targetPosn(Posn p, int direction);
     bool playerInRange(Posn p);
+    bool dragonInRange(Posn p);
     vector<Posn> enemyMovable(Posn p);
     void moveEnemy(Posn pos, Player &player);
 

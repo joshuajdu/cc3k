@@ -68,6 +68,18 @@ bool Floor::playerInRange(Posn p){
     return false;
 }
 
+bool Floor::dragonInRange(Posn p){
+    for (int i=-1; i<=1; i++){
+	for (int j=-1; j<=1; j++){
+	    Posn here = Posn(p.x + i, p.y + j);
+	    if (findCell(here)->getOccupierType() == 1 && findCell(here)->getEnemy()->get_race() == "Dragon"){
+		return true;
+	    }
+	}
+    }
+    return false;
+}
+
 vector<Posn> Floor::enemyMovable(Posn p){
     vector<Posn> returnval;
     for (int i=-1; i<=1; i++){
