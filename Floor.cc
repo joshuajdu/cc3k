@@ -4,18 +4,24 @@
 #include <fstream>
 #include <cstdlib>
 #include <time.h>
+#include <iomanip>
 
 using namespace std;
 
-void Floor::printDisplay(Player &player){
+void Floor::printDisplay(Player &player, int floorNum){
     for(int i=0; i<(int)cells.size(); i++){
         for (int j=0; j<(int)cells[0].size(); j++){
             cells[i][j].print();
         }
         cout << endl;
     }
-    cout << "Race: " << player.get_race() << " Gold: " << *player.get_gold();
-    cout << "                                                  Floor 1" << endl;
+    string race = player.get_race();
+    int gold = *player.get_gold();
+    cout << "Race: " << race << " Gold: ";
+    if (race == "Orc") cout << setprecision(2) << static_cast<double>(gold)/2.0;
+    else if (race == "Dwarf") cout << gold * 2;
+    else cout << gold;
+    cout << "                                                  Floor " << floorNum << endl;
     cout << "Hp: " << *player.get_hp() << endl;
     cout << "Atk: " << *player.get_atk() << endl;
     cout << "Def: " << *player.get_def() << endl;
@@ -30,18 +36,21 @@ void Floor::resetMove(){
     }
 }
 
-void Floor::checkDeath(){
+bool Floor::checkDeath(){
     for (int i=0; i<(int)cells.size(); i++){
 	for (int j=0; j<(int)cells[0].size(); j++){
 	    Posn temp = Posn(j,i);
 	    if (findCell(temp)->getOccupierType() == 1){
 		if (*findCell(temp)->getEnemy()->get_hp() <= 0){
+		    string race = findCell(temp)->getEnemy()->get_race();
 		    findCell(temp)->removeOccupant();
 		    cout << "Enemy Slain: ";
+		    if (race != "Dragon" && race != "Merchant") {return true;}
 		}
 	    }
 	}
     }
+    return false;
 }
 
 Posn Floor::targetPosn(Posn p, int direction){
@@ -95,7 +104,7 @@ vector<Posn> Floor::enemyMovable(Posn p){
 
 void Floor::moveEnemy(Posn pos, Player &player){
     if (findCell(pos)->getOccupierType() == 1 && !findCell(pos)->hasMoved()){
-	if (playerInRange(pos)){
+	if (playerInRange(pos) && findCell(pos)->getEnemy()->isAggressive()){
 	    int atkrand = rand()%2;
 	    if (atkrand == 0) player.Damage(findCell(pos)->getEnemy());
 	}

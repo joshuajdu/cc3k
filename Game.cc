@@ -41,6 +41,9 @@ void Game::start_game(string filename){
         else if (race == "o"){
             player = Orc();
         }
+	else if (race == "h"){
+	    player = Player();
+	}
         int level = 1;
         while (level <= 5 ){
             Floor fl; /// ADD FLOOR GENERATION AND NECESSARY CODE HERE
@@ -56,11 +59,11 @@ void Game::start_game(string filename){
         	}
         	inputFile.close();
 	    }
-	    fl.printDisplay(player);
+	    fl.printDisplay(player, level);
 	    cout << "Player character has spawned." << endl;
             /// Loads default floor with random spawn
-            bool floor_not_complete = true;
-            while (floor_not_complete && *player.get_hp() > 0) {
+            bool floorComplete = false;
+            while (!floorComplete && *player.get_hp() > 0) {
 		fl.resetMove();
                 Posn currentPosition = player.getPosn();
                 bool successfulCommand = false;
@@ -83,7 +86,7 @@ void Game::start_game(string filename){
 			    fl.findCell(targetPosn(currentPosition,input))->getEnemy()->Damage(player);
                             cout << *fl.findCell(targetPosn(currentPosition,input))->getEnemy()->get_hp();
 			    successfulCommand = true;
-			    fl.checkDeath();
+			    if (fl.checkDeath()) {*player.get_gold() += 1;}
                         }
                     }
                 } else if (check_direction(input)) {
@@ -92,16 +95,17 @@ void Game::start_game(string filename){
 			|| !fl.dragonInRange(targetPosn(currentPosition, input)))) {
 			player.setPosn(targetPosn(currentPosition, input));
                         fl.findCell(currentPosition)->transfer(fl.findCell(player.getPosn()));
-                        successfulCommand = true; /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
+                        successfulCommand = true;
+			if (fl.findCell(player.getPosn())->isStairs()) { floorComplete = true; }
                     }
                 }
-                if (successfulCommand) { fl.enemyTurn(player); } ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
-		fl.printDisplay(player);
+                if (successfulCommand) { fl.enemyTurn(player); } 
+		fl.printDisplay(player, level);
 		if (!successfulCommand){
 		    cout << "Invalid Input" << endl;
 		}
             }
-	    if (*player.get_hp() == 0) level = 6;
+	    if (*player.get_hp() == 0) break;
             level++;
         }
     }

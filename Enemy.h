@@ -26,6 +26,7 @@ class Enemy
         int *get_atk();
         Posn getPosn();
 	virtual void print() = 0;
+	virtual bool isAggressive();
 
     protected:
 
@@ -91,6 +92,7 @@ class Merchant : public Enemy{
         Merchant();
 	void print();
         void ChangeAggro();
+	bool isAggressive();
 
     protected:
 
