@@ -49,7 +49,7 @@ public:
     void generateFloor();
     void addInput(std::string line, int x, Player* player);
     Cell* findCell(Posn p);
-    void printDisplay(Player &player);
+    void printDisplay(Player &player, int floorNum);
     void spawn(Player &player);
     void enemyTurn(Player &player);
     void checkDeath();

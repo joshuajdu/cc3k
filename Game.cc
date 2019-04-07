@@ -56,7 +56,7 @@ void Game::start_game(string filename){
         	}
         	inputFile.close();
 	    }
-	    fl.printDisplay(player);
+	    fl.printDisplay(player, level);
 	    cout << "Player character has spawned." << endl;
             /// Loads default floor with random spawn
             bool floorComplete = false;
@@ -98,7 +98,7 @@ void Game::start_game(string filename){
                     }
                 }
                 if (successfulCommand) { fl.enemyTurn(player); } ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
-		fl.printDisplay(player);
+		fl.printDisplay(player, level);
 		if (!successfulCommand){
 		    cout << "Invalid Input" << endl;
 		}

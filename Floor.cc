@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void Floor::printDisplay(Player &player){
+void Floor::printDisplay(Player &player, int floorNum){
     for(int i=0; i<(int)cells.size(); i++){
         for (int j=0; j<(int)cells[0].size(); j++){
             cells[i][j].print();
@@ -15,7 +15,7 @@ void Floor::printDisplay(Player &player){
         cout << endl;
     }
     cout << "Race: " << player.get_race() << " Gold: " << *player.get_gold();
-    cout << "                                                  Floor 1" << endl;
+    cout << "                                                  Floor " << floorNum << endl;
     cout << "Hp: " << *player.get_hp() << endl;
     cout << "Atk: " << *player.get_atk() << endl;
     cout << "Def: " << *player.get_def() << endl;
