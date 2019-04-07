@@ -41,3 +41,4 @@ void BarrierSuit::print(){
 
 string BarrierSuit::actionPrint(){
     return "a Barrier Suit";
+}
