@@ -214,5 +214,31 @@ void Game::start_game(string filename){
             while (playAgain != 'Y' && playAgain != 'N') {cout << "> "; cin >> playAgain;}
             if (playAgain == 'N') break;
         }
+        if (level == 6) {
+            int gold = *player.get_gold();
+            cout << "//~~~====================================~~~\\\\\n";
+            cout << "||                                          ||\n";
+            cout << "||       Y  O  U              W  I  N       ||\n";
+            cout << "||                                          ||\n";
+            cout << "||         F I N A L      S C O R E         ||\n";
+            cout << "||                                          ||\n";
+            cout << "||                 {  ";
+            if (race == "d") {
+                if (gold < 5) {cout << 0;}
+                cout << gold * 2;
+            } else {
+                if (gold < 10) {cout << 0;}
+                if (race == "o") {cout << gold / 2;}
+                else {cout << gold;}
+            }               
+            cout << "  }                 ||\n";
+            cout << "||                                          ||\n";
+            cout << "\\\\~~~====================================~~~//\n\n\n";
+            cout << "                [ PLAY AGAIN ]\n";
+            cout << "                  [ Y OR N ]\n";
+            char playAgain = '0';
+            while (playAgain != 'Y' && playAgain != 'N') {cout << "> "; cin >> playAgain;}
+            if (playAgain == 'N') break;
+        }
     }
 }
