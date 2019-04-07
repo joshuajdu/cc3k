@@ -37,7 +37,8 @@ void Floor::resetMove(){
 }
 
 void Floor::spawnCompass(){
-    int random = rand() % 20;
+    cout << maxEnemies;
+    int random = rand() % maxEnemies;
     int counter = 0;
     for (int i=0; i<(int)cells.size(); i++){
 	for (int j=0; j<(int)cells[0].size(); j++){
@@ -172,29 +173,35 @@ void Floor::addInput(string line, int row, Player* player){
             case '@': cells[row][k].addOccupant(player); player->setPosn(Posn(k, row)); break;
 	    case '\\': cells[row][k].setStairs(); break;
             case 'V': {
+		maxEnemies++;
             	cells[row][k].addOccupant(shared_ptr<Enemy>(new Vampire()));
 	    } break;
             case 'W': {
+		maxEnemies++;
             	cells[row][k].addOccupant(shared_ptr<Enemy>(new Werewolf()));
 	    } break;
             case 'N': { 
+		maxEnemies++;
             	cells[row][k].addOccupant(shared_ptr<Enemy>(new Goblin()));
 	    } break;
             case 'M': {
+		maxEnemies++;
             	cells[row][k].addOccupant(shared_ptr<Enemy>(new Merchant()));
 	    } break;
             case 'D': {
+		maxEnemies++;
             	cells[row][k].addOccupant(shared_ptr<Enemy>(new Dragon()));
 	    } break;
             case 'X': {
+		maxEnemies++;
             	cells[row][k].addOccupant(shared_ptr<Enemy>(new Phoenix()));
 	    } break;
             case 'T': {
+		maxEnemies++;
             	cells[row][k].addOccupant(shared_ptr<Enemy>(new Troll()));
 	    } break;
 	}
     }
-    spawnCompass();
 }
 
 Posn Floor::randomCellChamber(int chamber){
@@ -234,6 +241,7 @@ bool Floor::generateEnemy(){
             findCell(p)->addOccupant(shared_ptr<Enemy>(new Troll()));
         }
     }
+    maxEnemies++;
     return true;
 }
 
@@ -268,6 +276,7 @@ bool Floor::generateDragon(shared_ptr<Item> treasure){
     if (possible.size() == 0) return false;
     int random = rand() % possible.size();
     findCell(possible[random])->addOccupant(shared_ptr<Enemy>(new Dragon()));
+    maxEnemies++;
     return true;
 }
 
@@ -307,8 +316,7 @@ void Floor::spawn(Player &player){
     // Generate Potions
     for (int i=0; i<10; i++){ if(!generatePotion()) i--; }
     for (int i=0; i<10; i++){ if(!generateGold()) i--; }
-    for (int i=0; i<20; i++){ if(!generateEnemy()) i--; }
-    spawnCompass();
+    for (int i=maxEnemies; i<20; i++){ if(!generateEnemy()) i--; }
 }
 
 void Floor::generateFloor(){

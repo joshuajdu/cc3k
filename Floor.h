@@ -33,6 +33,7 @@ enum goldRates {
 class Floor{
     std::vector< vector<Cell> > cells;
     Chamber a,b,c,d,e;
+    int maxEnemies = 0;
     bool generateEnemy();
     bool generatePotion();
     bool generateGold();

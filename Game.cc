@@ -89,6 +89,7 @@ void Game::start_game(string filename){
         	}
         	inputFile.close();
 	    }
+	    fl.spawnCompass();
 	    if (level == 1) {action = "Player character has spawned.";}
 	    else {action += "and has descended to floor "; action += to_string(level) += ".";}
             /// Loads default floor with random spawn
