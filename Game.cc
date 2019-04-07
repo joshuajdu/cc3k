@@ -59,8 +59,8 @@ void Game::start_game(string filename){
 	    fl.printDisplay(player);
 	    cout << "Player character has spawned." << endl;
             /// Loads default floor with random spawn
-            bool floor_not_complete = true;
-            while (floor_not_complete && *player.get_hp() > 0) {
+            bool floorComplete = false;
+            while (!floorComplete && *player.get_hp() > 0) {
 		fl.resetMove();
                 Posn currentPosition = player.getPosn();
                 bool successfulCommand = false;
@@ -93,6 +93,8 @@ void Game::start_game(string filename){
 			player.setPosn(targetPosn(currentPosition, input));
                         fl.findCell(currentPosition)->transfer(fl.findCell(player.getPosn()));
                         successfulCommand = true; /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
+                        if (fl.findCell(player.getPosn())->isStairs()) {floorComplete = true;}
+
                     }
                 }
                 if (successfulCommand) { fl.enemyTurn(player); } ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
@@ -101,7 +103,7 @@ void Game::start_game(string filename){
 		    cout << "Invalid Input" << endl;
 		}
             }
-	    if (*player.get_hp() == 0) level = 6;
+	    if (*player.get_hp() == 0) break;
             level++;
         }
     }
