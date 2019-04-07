@@ -1,6 +1,7 @@
 #include "Floor.h"
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <cstdlib>
 #include <time.h>
@@ -14,7 +15,12 @@ void Floor::printDisplay(Player &player, int floorNum){
         }
         cout << endl;
     }
-    cout << "Race: " << player.get_race() << " Gold: " << *player.get_gold();
+    string race = player.get_race();
+    int gold = *player.get_gold();
+    cout << "Race: " << race << " Gold: ";
+    if (race == "Orc") std::cout << std::setprecision(2) << static_cast<double>(gold) / 2.0;
+    else if (race == "Dwarf") cout << gold * 2;
+    else cout << gold;
     cout << "                                                  Floor " << floorNum << endl;
     cout << "Hp: " << *player.get_hp() << endl;
     cout << "Atk: " << *player.get_atk() << endl;
