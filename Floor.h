@@ -44,6 +44,7 @@ class Floor{
     void moveEnemy(Posn pos, Player &player);
 
 public:
+    void spawnCompass();
     bool dragonInRange(Posn p);
     void resetMove();
     void generateFloor();

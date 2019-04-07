@@ -36,6 +36,24 @@ void Floor::resetMove(){
     }
 }
 
+void Floor::spawnCompass(){
+    int random = rand() % 20;
+    int counter = 0;
+    for (int i=0; i<(int)cells.size(); i++){
+	for (int j=0; j<(int)cells[0].size(); j++){
+	    Posn temp = Posn(j,i);
+	    if (findCell(temp)->getOccupierType() == 1){
+		if (counter == random){
+		    findCell(temp)->getEnemy()->gainCompass();
+		}
+		else{
+		    counter++;
+		}
+	    }
+	}
+    }
+}
+
 bool Floor::checkDeath(){
     for (int i=0; i<(int)cells.size(); i++){
 	for (int j=0; j<(int)cells[0].size(); j++){
@@ -168,6 +186,7 @@ void Floor::addInput(string line, int row, Player* player){
 	    } break;
 	}
     }
+    spawnCompass();
 }
 
 Posn Floor::randomCellChamber(int chamber){
@@ -281,6 +300,7 @@ void Floor::spawn(Player &player){
     for (int i=0; i<10; i++){ if(!generatePotion()) i--; }
     for (int i=0; i<10; i++){ if(!generateGold()) i--; }
     for (int i=0; i<20; i++){ if(!generateEnemy()) i--; }
+    spawnCompass();
 }
 
 void Floor::generateFloor(){

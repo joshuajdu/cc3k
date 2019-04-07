@@ -28,6 +28,7 @@ class Enemy
 	virtual void print() = 0;
 	virtual bool isAggressive();
 	virtual void ChangeAggro();
+	void gainCompass();
 
     protected:
 

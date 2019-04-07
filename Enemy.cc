@@ -18,6 +18,8 @@ Posn Enemy::getPosn(){
     return p;
 }
 
+void Enemy::gainCompass() { compass = true; }
+
 int *Enemy::get_hp(){
     return &hp;
 }
