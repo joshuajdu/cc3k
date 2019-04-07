@@ -1,5 +1,6 @@
 #include <string>
 #include <stdlib.h>
+#include <iomanip>
 #include <iostream>
 #include <math.h>
 #include "Player.h"
@@ -110,6 +111,8 @@ string Player::Damage(shared_ptr<Enemy> e){
     dmg = ceil(dmg);
 
     int x = (int)dmg;
+    
+    if (barrier_suit) x = (int)ceil(static_cast<double>(x)/2.0);
 
     hp -= x;
     if (hp < 0){
