@@ -32,8 +32,10 @@ class Player
         int* get_gold();
         bool get_barriersuit();
         void switch_barrier();
+	void getCompass();
 
         string get_race();
+	void resetPlayer();
         Posn getPosn();
 	void setPosn(Posn p);
         void Position();

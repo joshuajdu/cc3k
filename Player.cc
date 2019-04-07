@@ -16,6 +16,15 @@ string Player::get_race(){
     return race;
 }
 
+void Player::resetPlayer(){
+    atk = baseatk;
+    def = basedef;
+}
+
+void Player::getCompass(){
+    compass = true;
+}
+
 int Player::get_maxhp(){
     return maxhp;
 }
@@ -106,17 +115,13 @@ string Player::Damage(shared_ptr<Enemy> e){
     if (hp < 0){
         hp = 0;
     }
-    
+
     return "\n        " + e->get_race() + " deals " + std::to_string(x) + " damage to PC.";
 }
-
-
-
 
 Dwarf::Dwarf(): Player(100, 20, 30, "Dwarf") {}
 
 Elf::Elf(): Player(140,20,10,"Elf") {}
 
 Orc::Orc(): Player(180,30,25,"Orc"){}
-
 

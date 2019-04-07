@@ -21,12 +21,15 @@ class Enemy
         //virtual void Move(string direction) = 0;
         string Damage(Player &p);
         bool playerInRange(Player &p);
+	bool hasCompass();
         string get_race();
         int *get_hp();
         int *get_atk();
         Posn getPosn();
 	virtual void print() = 0;
-        virtual bool isAggressive();
+	virtual bool isAggressive();
+	virtual void ChangeAggro();
+	void gainCompass();
 
     protected:
 
@@ -92,7 +95,7 @@ class Merchant : public Enemy{
         Merchant();
 	void print();
         void ChangeAggro();
-        bool isAggressive();
+	bool isAggressive();
 
     protected:
 

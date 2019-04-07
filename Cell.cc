@@ -21,6 +21,10 @@ Cell::Cell(Posn p, cellType c, shared_ptr<Item> i): cellT{c}, pos{p}{
     occ.i = i;
 }
 
+void Cell::resetCompass(){
+    compass = false;
+}
+
 bool Cell::hasMoved() { return moved; }
 
 void Cell::setStairs() {stairs = true; occ.occupied = true;}

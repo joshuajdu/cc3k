@@ -33,6 +33,7 @@ enum goldRates {
 class Floor{
     std::vector< vector<Cell> > cells;
     Chamber a,b,c,d,e;
+    int maxEnemies = 0;
     bool generateEnemy();
     bool generatePotion();
     bool generateGold();
@@ -41,9 +42,10 @@ class Floor{
     Posn targetPosn(Posn p, int direction);
     bool playerInRange(Posn p);
     vector<Posn> enemyMovable(Posn p);
-    string moveEnemy(Posn pos, Player &player);
+    std::string moveEnemy(Posn pos, Player &player);
 
 public:
+    void spawnCompass();
     bool dragonInRange(Posn p);
     void resetMove();
     void generateFloor();
@@ -51,8 +53,8 @@ public:
     Cell* findCell(Posn p);
     void printDisplay(Player &player, int floorNum);
     void spawn(Player &player);
-    string enemyTurn(Player &player);
-    bool checkDeath();
+    std::string enemyTurn(Player &player);
+    bool checkDeath(Player &player);
 };
 
 #endif

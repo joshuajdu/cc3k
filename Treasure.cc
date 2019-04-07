@@ -2,21 +2,15 @@
 #include <string>
 #include "Treasure.h"
 
+using namespace std;
+
 Treasure::Treasure(int x, int y, int goldVal): Item(x, y, "G"), goldVal{goldVal}{
     if (goldVal == 0) setName("B");
 }
 
 void Treasure::useItem(Player &p){
     int* gold = p.get_gold();
-    if (p.get_race() == "Orc"){
-	(*gold) = (*gold) + (int)goldVal*0.5;
-    }
-    else if (p.get_race() == "Dwarf"){
-	(*gold) = (*gold) + goldVal*2;
-    }
-    else{
-    	(*gold) = (*gold) + goldVal;
-    }
+    (*gold) = (*gold) + goldVal;
 }
 
 void Treasure::print(){

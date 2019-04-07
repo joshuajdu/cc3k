@@ -11,5 +11,5 @@ Posn Game::targetPosn(Posn p, string direction){
     return p;
 }
 
-            if (level == 1) {action = "Player character has spawned.";}
-            else {action = "Player has descended to floor "; action += std::to_string(level);}
+if (level == 1) {action = "Player character has spawned.";}
+else {action = "Player has descended to floor "; action += std::to_string(level);}

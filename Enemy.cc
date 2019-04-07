@@ -18,6 +18,12 @@ Posn Enemy::getPosn(){
     return p;
 }
 
+bool Enemy::hasCompass(){
+    return compass;
+}
+
+void Enemy::gainCompass() { compass = true; }
+
 int *Enemy::get_hp(){
     return &hp;
 }
@@ -31,7 +37,7 @@ bool Enemy::isAggressive(){
 
 string Enemy::Damage(Player &p){
     //ceiling ((100/100+ def(defender)) * atk (attacker))
-
+    ChangeAggro();
     double dmg = 100.0/(100+def) * (*p.get_atk());
     dmg = ceil(dmg);
 
@@ -41,9 +47,12 @@ string Enemy::Damage(Player &p){
     if (hp < 0){
         hp = 0;
     }
-    return "PC deals " + std::to_string(x) + " damage to " 
-                       + race + " (" + std::to_string(hp) + " HP).";
+
+    return "PC deals " + to_string(x) + " damage to "
+		       + race + " (" + to_string(hp) + " HP).";
 }
+
+void Enemy::ChangeAggro() {}
 
 bool Enemy::playerInRange(Player &p){
 
@@ -77,7 +86,7 @@ void Merchant::print() { cout << "M"; }
 
 bool Merchant::aggressive = false;
 
-bool Merchant::isAggressive() {
+bool Merchant::isAggressive(){
     return aggressive;
 }
 

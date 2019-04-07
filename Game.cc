@@ -70,11 +70,11 @@ void Game::start_game(string filename){
         else if (race == "o"){
             player = Orc();
         }
-        else if (race == "h"){
-            player = Player();
-        }
+	else if (race == "h"){
+	    player = Player();
+	}
         int level = 1;
-        string action;
+	string action;
         while (level <= 5 ){
             Floor fl; /// ADD FLOOR GENERATION AND NECESSARY CODE HERE
 	    fl.generateFloor();
@@ -89,29 +89,30 @@ void Game::start_game(string filename){
         	}
         	inputFile.close();
 	    }
-            if (level == 1) {action = "Player character has spawned.";}
-            else {action += "and has descended to floor "; action += std::to_string(level) + "."; }
+	    fl.spawnCompass();
+	    if (level == 1) {action = "Player character has spawned.";}
+	    else {action += "and has descended to floor "; action += to_string(level) += ".";}
             /// Loads default floor with random spawn
-            bool successfulCommand = true;
+	    bool successfulCommand = true;
             while (*player.get_hp() > 0) {
-                if (successfulCommand) {
-                    fl.printDisplay(player, level);
-                    cout << action << "\n";
-                    if (action.back() != '\n') {cout << "\n";}
-                    cout << "> ";
-                }
+		if (successfulCommand){
+		    fl.printDisplay(player, level);
+		    cout << action << "\n ";
+		    if (action.back() != '\n') cout << "\n";
+		    cout << "> ";
+		}
 		fl.resetMove();
                 Posn currentPosition = player.getPosn();
-                successfulCommand = false;
+		successfulCommand = false;
                 cin >> input;
                 if (input == "r") {level = 6; break;} /// to break out of 'level' loop
                 else if (input == "q") return;
                 else if (input == "u") {
                     cin >> input;
                     if (check_direction(input)) {
-                        if (fl.findCell(targetPosn(currentPosition, input))->getItem()) {
+                        if (fl.findCell(targetPosn(currentPosition, input))->getOccupierType() == Item_) {
                             fl.findCell(targetPosn(currentPosition, input))->getItem()->useItem(player);
-                            action = "PC uses " + 
+			    action = "PC uses " + 
                                 fl.findCell(targetPosn(currentPosition, input))->getItem()->getName()
                                 + ".";
 			    fl.findCell(targetPosn(currentPosition, input))->removeOccupant();
@@ -124,17 +125,17 @@ void Game::start_game(string filename){
                         if (fl.findCell(targetPosn(currentPosition, input))->getOccupierType() == occType::Enemy_) {
 			    action = fl.findCell(targetPosn(currentPosition,input))->getEnemy()->Damage(player);
 			    successfulCommand = true;
-			    if (fl.checkDeath()) {*player.get_gold() += 1;} ///####
+			    if (fl.checkDeath(player)) {*player.get_gold() += 1;}
                         }
                     }
                 } else if (check_direction(input)) {
-                    
+
                     if (fl.findCell(targetPosn(currentPosition, input))->playerCanMove() &&
 			(fl.findCell(targetPosn(currentPosition, input))->getOccupierType() != Gold_ 
 			|| !fl.dragonInRange(targetPosn(currentPosition, input)))) {
 			player.setPosn(targetPosn(currentPosition, input));
                         fl.findCell(currentPosition)->transfer(fl.findCell(player.getPosn()));
-                        action = "PC moves ";
+			action = "PC moves ";
 
                         // for action display
                         if (input[0] == 'w') {action += "West";}
@@ -143,10 +144,9 @@ void Game::start_game(string filename){
                         else {action += "South";}
                         
                         if (input[1] == 'w') {action += "west";}
-                        else if (input[1] == 'e' && input[0] != 'w') {action += "east";}
-                        
-                        // if player sees a potion
-                        bool onlyOne = true, seesSomething = false;
+                        else if (input[1] == 'e' && input[0] != 'w') {action+= "east";}
+			
+			bool onlyOne = true, seesSomething = false;
                         for (int relativeRow = -1; relativeRow <= 1; relativeRow++) {
                             for (int relativeCol = -1; relativeCol <= 1; relativeCol++) {
                                 Posn sight = {player.getPosn().x + relativeCol,
@@ -162,32 +162,55 @@ void Game::start_game(string filename){
                                 }
                             }
                         }
-                    
 
-                        successfulCommand = true; /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
-                        if (fl.findCell(player.getPosn())->isStairs()) {break;}
-                    
-                        // if nothing seen
-                        if (!seesSomething) {action += ". " + flavorText() + ".";}
-
+                        successfulCommand = true;
+			if (fl.findCell(player.getPosn())->isStairs()) { break; }
+			if (!seesSomething) {action += ". " + flavorText() + ".";}
                         action += ".";
-
                     }
                 }
-                if (successfulCommand) { action += fl.enemyTurn(player); } ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
+                if (successfulCommand) { action += fl.enemyTurn(player); } 
+		//fl.printDisplay(player, level);
 		if (!successfulCommand){
-		    cout << "Invalid Input.\n> ";
+		    cout << "Invalid Input.\n> " << endl;
 		}
             }
 	    if (*player.get_hp() == 0) {
-                
-                cout << "======================================\n";
+		cout << "======================================\n";
                 cout << "         You lost. Try again!\n";
                 cout << "======================================\n\n";
 
                 break;
-            }
+	    }
             level++;
+	    player.resetPlayer();
+	    fl.findCell(player.getPosn())->resetCompass();
+        }
+	if (level == 6) {
+            int gold = *player.get_gold();
+            cout << "//~~~====================================~~~\\\\\n";
+            cout << "||                                          ||\n";
+            cout << "||       Y  O  U              W  I  N       ||\n";
+            cout << "||                                          ||\n";
+            cout << "||         F I N A L      S C O R E         ||\n";
+            cout << "||                                          ||\n";
+            cout << "||                 {  ";
+            if (race == "d") {
+                if (gold < 5) {cout << 0;}
+                cout << gold * 2;
+            } else {
+                if (gold < 10) {cout << 0;}
+                if (race == "o") {cout << gold / 2;}
+                else {cout << gold;}
+            }               
+            cout << "  }                 ||\n";
+            cout << "||                                          ||\n";
+            cout << "\\\\~~~====================================~~~//\n\n\n";
+	    cout << "                [ PLAY AGAIN ]\n";
+            cout << "                  [ Y OR N ]\n";
+            char playAgain = '0';
+            while (playAgain != 'Y' && playAgain != 'N') {cout << "> "; cin >> playAgain;}
+            if (playAgain == 'N') break;
         }
         if (level == 6) {
             int gold = *player.get_gold();
