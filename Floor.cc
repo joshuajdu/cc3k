@@ -1,6 +1,7 @@
 #include "Floor.h"
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <cstdlib>
 #include <time.h>

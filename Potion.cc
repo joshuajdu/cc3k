@@ -49,6 +49,11 @@ void BD::useItem(Player &p){
     *p.get_def() = *p.get_def() + 5;
 }
 
+string BD::actionPrint() {
+    if (!found) return "an unknown potion";
+    else return "a " + getName() + " potion";
+}
+
 bool BD::foundItem(){ return found; }
 
 string BD::actionPrint() {

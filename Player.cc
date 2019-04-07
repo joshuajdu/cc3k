@@ -125,4 +125,3 @@ Elf::Elf(): Player(140,20,10,"Elf") {}
 
 Orc::Orc(): Player(180,30,25,"Orc"){}
 
-
