@@ -62,7 +62,7 @@ void Game::start_game(string filename){
 	    }
 	    fl.printDisplay(player, level);
             if (level == 1) {action = "Player character has spawned.";}
-            else {action = "Player has descended to floor "; action += std::to_string(level);}
+            else {action += "and has descended to floor "; action += std::to_string(level); << "." }
             /// Loads default floor with random spawn
             while (*player.get_hp() > 0) {
                 cout << action << "\n> ";
@@ -97,6 +97,17 @@ void Game::start_game(string filename){
 			|| !fl.dragonInRange(targetPosn(currentPosition, input)))) {
 			player.setPosn(targetPosn(currentPosition, input));
                         fl.findCell(currentPosition)->transfer(fl.findCell(player.getPosn()));
+                        action = "PC moves ";
+
+                        // for action display
+                        if (input[0] == 'w') {action += "West";}
+                        else if (input[0] == 'e') {action += "East";}
+                        else if (input[0] == 'n') {action += "North";}
+                        else {action += "South";}
+                        
+                        if (input[1] == 'w') {action += "west";}
+                        else if (input[1] == 'e' && input[0] != 'w') {action+= "east";}
+
                         successfulCommand = true; /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
                         if (fl.findCell(player.getPosn())->isStairs()) {break;}
 

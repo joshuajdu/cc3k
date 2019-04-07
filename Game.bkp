@@ -1,0 +1,15 @@
+Posn Game::targetPosn(Posn p, string direction){
+    action = "PC moves ";
+    if (direction == "no") {p.y--; action += "East";}
+    else if (direction == "so") {p.y++; action += "South";}
+    else if (direction == "ea") {p.x++; action += "East";}
+    else if (direction == "we") {p.x--; action += "West";}
+    else if (direction == "ne") {p.y--; p.x++; action += "Northeast";}
+    else if (direction == "nw") {p.y--; p.x--; action += "Northwest";}
+    else if (direction == "se") {p.y++; p.x++; action += "Southeast";}
+    else if (direction == "sw") {p.y++; p.x--; action += "Southwest";}
+    return p;
+}
+
+            if (level == 1) {action = "Player character has spawned.";}
+            else {action = "Player has descended to floor "; action += std::to_string(level);}

@@ -26,7 +26,7 @@ class Game{
     protected:
 
     private:
-
+        string action;
         Player player;
 
 };
