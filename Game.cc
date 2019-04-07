@@ -150,6 +150,11 @@ void Game::start_game(string filename){
             cout << "  }                 ||\n";
             cout << "||                                          ||\n";
             cout << "\\\\~~~====================================~~~//\n\n\n";
+            cout << "                [ PLAY AGAIN ]\n";
+            cout << "                  [ Y OR N ]\n";
+            char playAgain = '0';
+            while (playAgain != 'Y' && playAgain != 'N') {cout << "> "; cin >> playAgain;}
+            if (playAgain == 'N') break;
         }
     }
 }
