@@ -89,7 +89,7 @@ void Game::start_game(string filename){
         	}
         	inputFile.close();
 	    }
-	    if (level == 1) { cout << "Player character has spawned." << endl; }
+	    if (level == 1) {action = "Player character has spawned.";}
 	    else {action += "and has descended to floor "; action += to_string(level) += ".";}
             /// Loads default floor with random spawn
 	    bool successfulCommand = true;
@@ -109,7 +109,7 @@ void Game::start_game(string filename){
                 else if (input == "u") {
                     cin >> input;
                     if (check_direction(input)) {
-                        if (fl.findCell(targetPosn(currentPosition, input))->getItem()) {
+                        if (fl.findCell(targetPosn(currentPosition, input))->getOccupierType() == Item_) {
                             fl.findCell(targetPosn(currentPosition, input))->getItem()->useItem(player);
 			    action = "PC uses " + 
                                 fl.findCell(targetPosn(currentPosition, input))->getItem()->getName()
@@ -182,6 +182,7 @@ void Game::start_game(string filename){
                 break;
 	    }
             level++;
+	    player.resetPlayer();
         }
 	if (level == 6) {
             int gold = *player.get_gold();

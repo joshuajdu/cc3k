@@ -34,6 +34,7 @@ class Player
         void switch_barrier();
 
         string get_race();
+	void resetPlayer();
         Posn getPosn();
 	void setPosn(Posn p);
         void Position();

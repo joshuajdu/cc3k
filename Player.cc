@@ -16,6 +16,11 @@ string Player::get_race(){
     return race;
 }
 
+void Player::resetPlayer(){
+    atk = baseatk;
+    def = basedef;
+}
+
 int Player::get_maxhp(){
     return maxhp;
 }
