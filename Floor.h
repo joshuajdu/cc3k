@@ -53,6 +53,7 @@ public:
     Cell* findCell(Posn p);
     void printDisplay(Player &player, int floorNum);
     void spawn(Player &player);
+    void spawnBarrierSuit();
     std::string enemyTurn(Player &player);
     bool checkDeath(Player &player);
 };

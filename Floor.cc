@@ -38,7 +38,6 @@ void Floor::resetMove(){
 }
 
 void Floor::spawnCompass(){
-    cout << maxEnemies;
     int random = rand() % maxEnemies;
     int counter = 0;
     for (int i=0; i<(int)cells.size(); i++){
@@ -54,6 +53,16 @@ void Floor::spawnCompass(){
 	    }
 	}
     }
+}
+
+void Floor::spawnBarrierSuit(){
+    Posn p = randomCellChamber();
+    while (findCell(p)->getOccupierType() != None_ || findCell(p)->isStairs()){
+	p = randomCellChamber();
+    }
+    findCell(p)->addOccupant(shared_ptr<Item>(new BarrierSuit(p.x, p.y)));
+    generateDragon(findCell(p)->getItem());
+    maxEnemies++;
 }
 
 bool Floor::checkDeath(Player &player){

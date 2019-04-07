@@ -56,11 +56,6 @@ string BD::actionPrint() {
 
 bool BD::foundItem(){ return found; }
 
-string BD::actionPrint() {
-    if (!found) return "an unknown potion";
-    else return "a " + getName() + " potion";
-}
-
 PH::PH(int x, int y): Potion(x, y, "PH") {}
 
 void PH::useItem(Player &p){
