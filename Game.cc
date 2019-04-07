@@ -67,7 +67,9 @@ void Game::start_game(string filename){
             while (*player.get_hp() > 0) {
                 if (successfulCommand) {
                     fl.printDisplay(player, level);
-                    cout << action << "\n> ";
+                    cout << action << "\n";
+                    if (action.back() != '\n') {cout << "\n";}
+                    cout << "> ";
                 }
 		fl.resetMove();
                 Posn currentPosition = player.getPosn();
@@ -122,7 +124,7 @@ void Game::start_game(string filename){
                 }
                 if (successfulCommand) { action += fl.enemyTurn(player); } ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
 		if (!successfulCommand){
-		    cout << "Invalid Input" << endl;
+		    cout << "Invalid Input.\n> ";
 		}
             }
 	    if (*player.get_hp() == 0) break;
