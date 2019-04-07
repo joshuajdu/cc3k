@@ -27,6 +27,35 @@ Posn Game::targetPosn(Posn p, string direction){
     return p;
 }
 
+string Game::flavorText() {
+    switch (rand() % 23) {
+    case 0: return "It feels frigid."; break;
+    case 1: return "You feel something watching you."; break;
+    case 2: return "The walls are covered in decay."; break;
+    case 3: return "You gulp hesitantly."; break;
+    case 4: return "You tighten your grip on your weapon."; break;
+    case 5: return "Your eyes dart around, looking for danger."; break;
+    case 6: return "You feel uncomfortable."; break;
+    case 7: return "You twiddle your thumbs."; break;
+    case 8: return "Sweat drips down your face."; break;
+    case 9: return "You think of your homeland."; break;
+    case 10: return "You keep a steady pace."; break;
+    case 11: return "You think of your family and friends."; break;
+    case 12: return "Your mind is blank."; break;
+    case 13: return "You think of the exit."; break;
+    case 14: return "You cough violently."; break;
+    case 15: return "You find it hard to breathe."; break;
+    case 16: return "You feel a menacing presence nearby."; break;
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    case 22: return "You don't see any treasure around you yet."; break;
+    }
+    return "";
+}
+
 void Game::start_game(string filename){
     string race, input;
     while (true) {
@@ -139,7 +168,7 @@ void Game::start_game(string filename){
                         if (fl.findCell(player.getPosn())->isStairs()) {break;}
                     
                         // if nothing seen
-                        if (!seesSomething) {}
+                        if (!seesSomething) {action += ". " + flavorText() + ".";}
 
                         action += ".";
 

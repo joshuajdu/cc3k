@@ -21,6 +21,7 @@ class Game{
         bool check_direction(std::string direction);
         void start_game(string filename = "");
         Posn targetPosn(Posn p, std::string direction);
+        string flavorText();
        // void start_game(Floor f);
 
     protected:
