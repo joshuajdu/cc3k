@@ -19,6 +19,7 @@ public:
     RH(int x, int y);
     void useItem(Player &p);
     bool foundItem();
+    string actionPrint();
 };
 
 class BA: public Potion{
@@ -27,6 +28,7 @@ public:
     BA(int x, int y);
     void useItem(Player &p);
     bool foundItem();
+    string actionPrint();
 };
 
 class BD: public Potion{
@@ -35,6 +37,7 @@ public:
     BD(int x, int y);
     void useItem(Player &p);
     bool foundItem();
+    string actionPrint();
 };
 
 class PH: public Potion{
@@ -43,6 +46,7 @@ public:
     PH(int x, int y);
     void useItem(Player &p);
     bool foundItem();
+    string actionPrint();
 };
 
 class WA: public Potion{
@@ -51,6 +55,7 @@ public:
     WA(int x, int y);
     void useItem(Player &p);
     bool foundItem();
+    string actionPrint();
 };
 
 class WD: public Potion{
@@ -59,5 +64,6 @@ public:
     WD(int x, int y);
     void useItem(Player &p);
     bool foundItem();
+    string actionPrint();
 };
 #endif

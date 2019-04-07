@@ -82,6 +82,9 @@ void Game::start_game(string filename){
                     if (check_direction(input)) {
                         if (fl.findCell(targetPosn(currentPosition, input))->getItem()) {
                             fl.findCell(targetPosn(currentPosition, input))->getItem()->useItem(player);
+                            action = "PC uses " + 
+                                fl.findCell(targetPosn(currentPosition, input))->getItem()->getName()
+                                + ".";
 			    fl.findCell(targetPosn(currentPosition, input))->removeOccupant();
                             successfulCommand = true;
                         }
@@ -96,6 +99,7 @@ void Game::start_game(string filename){
                         }
                     }
                 } else if (check_direction(input)) {
+                    
                     if (fl.findCell(targetPosn(currentPosition, input))->playerCanMove() &&
 			(fl.findCell(targetPosn(currentPosition, input))->getOccupierType() != Gold_ 
 			|| !fl.dragonInRange(targetPosn(currentPosition, input)))) {
@@ -112,13 +116,32 @@ void Game::start_game(string filename){
                         if (input[1] == 'w') {action += "west";}
                         else if (input[1] == 'e' && input[0] != 'w') {action += "east";}
                         
-                        // if nothing seen
-
-                        action += ".";
-
+                        // if player sees a potion
+                        bool onlyOne = true, seesSomething = false;
+                        for (int relativeRow = -1; relativeRow <= 1; relativeRow++) {
+                            for (int relativeCol = -1; relativeCol <= 1; relativeCol++) {
+                                Posn sight = {player.getPosn().x + relativeCol,
+                                              player.getPosn().y + relativeRow};
+                                if (fl.findCell(sight)->getOccupierType() == occType::Item_||
+                                    fl.findCell(sight)->getOccupierType() == occType::Gold_) {
+                                    if (onlyOne) {
+                                        onlyOne = false;
+                                        seesSomething = true;
+                                        action += " and sees ";
+                                    } else { action += ", ";}
+                                    action += fl.findCell(sight)->getItem()->actionPrint();
+                                }
+                            }
+                        }
+                    
 
                         successfulCommand = true; /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
                         if (fl.findCell(player.getPosn())->isStairs()) {break;}
+                    
+                        // if nothing seen
+                        if (!seesSomething) {}
+
+                        action += ".";
 
                     }
                 }
