@@ -75,6 +75,7 @@ void Game::start_game(string filename){
 	}
         int level = 1;
 	string action;
+	int randBarrierFloor = rand() % 2;
         while (level <= 5 ){
             Floor fl; /// ADD FLOOR GENERATION AND NECESSARY CODE HERE
 	    fl.generateFloor();
@@ -90,6 +91,7 @@ void Game::start_game(string filename){
         	inputFile.close();
 	    }
 	    fl.spawnCompass();
+	    if (level == randBarrierFloor+1) fl.spawnBarrierSuit();
 	    if (level == 1) {action = "Player character has spawned.";}
 	    else {action += "and has descended to floor "; action += to_string(level) += ".";}
             /// Loads default floor with random spawn
