@@ -41,7 +41,7 @@ class Floor{
     Posn targetPosn(Posn p, int direction);
     bool playerInRange(Posn p);
     vector<Posn> enemyMovable(Posn p);
-    void moveEnemy(Posn pos, Player &player);
+    string moveEnemy(Posn pos, Player &player);
 
 public:
     bool dragonInRange(Posn p);
@@ -51,7 +51,7 @@ public:
     Cell* findCell(Posn p);
     void printDisplay(Player &player, int floorNum);
     void spawn(Player &player);
-    void enemyTurn(Player &player);
+    string enemyTurn(Player &player);
     bool checkDeath();
 };
 

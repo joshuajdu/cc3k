@@ -19,7 +19,7 @@ class Enemy
         Enemy(int hp, int atk, int def, string race, int x=0, int y=0);
 
         //virtual void Move(string direction) = 0;
-        void Damage(Player &p);
+        string Damage(Player &p);
         bool playerInRange(Player &p);
         string get_race();
         int *get_hp();

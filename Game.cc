@@ -60,15 +60,18 @@ void Game::start_game(string filename){
         	}
         	inputFile.close();
 	    }
-	    fl.printDisplay(player, level);
             if (level == 1) {action = "Player character has spawned.";}
-            else {action += "and has descended to floor "; action += std::to_string(level); << "." }
+            else {action += "and has descended to floor "; action += std::to_string(level) + "."; }
             /// Loads default floor with random spawn
+            bool successfulCommand = true;
             while (*player.get_hp() > 0) {
-                cout << action << "\n> ";
+                if (successfulCommand) {
+                    fl.printDisplay(player, level);
+                    cout << action << "\n> ";
+                }
 		fl.resetMove();
                 Posn currentPosition = player.getPosn();
-                bool successfulCommand = false;
+                successfulCommand = false;
                 cin >> input;
                 if (input == "r") {level = 6; break;} /// to break out of 'level' loop
                 else if (input == "q") return;
@@ -85,8 +88,7 @@ void Game::start_game(string filename){
                     cin >> input;
                     if (check_direction(input)) {
                         if (fl.findCell(targetPosn(currentPosition, input))->getOccupierType() == occType::Enemy_) {
-			    fl.findCell(targetPosn(currentPosition,input))->getEnemy()->Damage(player);
-                            cout << *fl.findCell(targetPosn(currentPosition,input))->getEnemy()->get_hp();
+			    action = fl.findCell(targetPosn(currentPosition,input))->getEnemy()->Damage(player);
 			    successfulCommand = true;
 			    if (fl.checkDeath()) {*player.get_gold() += 1;} ///####
                         }
@@ -106,15 +108,19 @@ void Game::start_game(string filename){
                         else {action += "South";}
                         
                         if (input[1] == 'w') {action += "west";}
-                        else if (input[1] == 'e' && input[0] != 'w') {action+= "east";}
+                        else if (input[1] == 'e' && input[0] != 'w') {action += "east";}
+                        
+                        // if nothing seen
+
+                        action += ".";
+
 
                         successfulCommand = true; /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
                         if (fl.findCell(player.getPosn())->isStairs()) {break;}
 
                     }
                 }
-                if (successfulCommand) { fl.enemyTurn(player); } ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
-		fl.printDisplay(player, level);
+                if (successfulCommand) { action += fl.enemyTurn(player); } ///### ADD MOVE COMMAND INSIDE OF IF STATEMENT
 		if (!successfulCommand){
 		    cout << "Invalid Input" << endl;
 		}

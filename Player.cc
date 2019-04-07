@@ -94,7 +94,7 @@ void Player::Position(){
 }
 
 
-void Player::Damage(shared_ptr<Enemy> e){
+string Player::Damage(shared_ptr<Enemy> e){
     //ceiling ((100/100+ def(defender)) * atk (attacker))
 
     double dmg = 100.0/(100+def) * (*e->get_atk());
@@ -106,9 +106,8 @@ void Player::Damage(shared_ptr<Enemy> e){
     if (hp < 0){
         hp = 0;
     }
-
-    cout << "Attack: " << (*e->get_atk()) << " Defence: " << def << endl;
-    cout << "Damage done:" << dmg << endl;
+    
+    return " " + e->get_race() + " deals " + std::to_string(x) + " damage to PC.\n";
 }
 
 
