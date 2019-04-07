@@ -52,7 +52,7 @@ public:
     void printDisplay(Player &player, int floorNum);
     void spawn(Player &player);
     void enemyTurn(Player &player);
-    void checkDeath();
+    bool checkDeath();
 };
 
 #endif

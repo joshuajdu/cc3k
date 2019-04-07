@@ -41,6 +41,9 @@ void Game::start_game(string filename){
         else if (race == "o"){
             player = Orc();
         }
+        else if (race == "h"){
+            player = Player();
+        }
         int level = 1;
         while (level <= 5 ){
             Floor fl; /// ADD FLOOR GENERATION AND NECESSARY CODE HERE
@@ -83,7 +86,7 @@ void Game::start_game(string filename){
 			    fl.findCell(targetPosn(currentPosition,input))->getEnemy()->Damage(player);
                             cout << *fl.findCell(targetPosn(currentPosition,input))->getEnemy()->get_hp();
 			    successfulCommand = true;
-			    fl.checkDeath();
+			    if (fl.checkDeath()) {*player.get_gold() += 1;} ///####
                         }
                     }
                 } else if (check_direction(input)) {
