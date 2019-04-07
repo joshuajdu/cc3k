@@ -105,7 +105,7 @@ vector<Posn> Floor::enemyMovable(Posn p){
 
 void Floor::moveEnemy(Posn pos, Player &player){
     if (findCell(pos)->getOccupierType() == 1 && !findCell(pos)->hasMoved()){
-	if (playerInRange(pos)){
+	if (playerInRange(pos) && findCell(pos)->getEnemy()->isAggressive()){
 	    int atkrand = rand()%2;
 	    if (atkrand == 0) player.Damage(findCell(pos)->getEnemy());
 	}

@@ -25,6 +25,10 @@ int *Enemy::get_atk(){
     return &atk;
 }
 
+bool Enemy::isAggressive(){
+    return true;
+}
+
 void Enemy::Damage(Player &p){
     //ceiling ((100/100+ def(defender)) * atk (attacker))
 
@@ -74,6 +78,10 @@ Merchant::Merchant() : Enemy(30,70,5,"Merchant"){}
 void Merchant::print() { cout << "M"; }
 
 bool Merchant::aggressive = false;
+
+bool Merchant::isAggressive() {
+    return aggressive;
+}
 
 void Merchant::ChangeAggro(){
     aggressive = true;
