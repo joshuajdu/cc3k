@@ -45,6 +45,7 @@ void Game::start_game(string filename){
             player = Player();
         }
         int level = 1;
+        string action;
         while (level <= 5 ){
             Floor fl; /// ADD FLOOR GENERATION AND NECESSARY CODE HERE
 	    fl.generateFloor();
@@ -60,10 +61,11 @@ void Game::start_game(string filename){
         	inputFile.close();
 	    }
 	    fl.printDisplay(player, level);
-	    cout << "Player character has spawned." << endl;
+            if (level == 1) {action = "Player character has spawned.";}
+            else {action = "Player has descended to floor "; action += std::to_string(level);}
             /// Loads default floor with random spawn
-            bool floorComplete = false;
-            while (!floorComplete && *player.get_hp() > 0) {
+            while (*player.get_hp() > 0) {
+                cout << action << "\n> ";
 		fl.resetMove();
                 Posn currentPosition = player.getPosn();
                 bool successfulCommand = false;
@@ -96,7 +98,7 @@ void Game::start_game(string filename){
 			player.setPosn(targetPosn(currentPosition, input));
                         fl.findCell(currentPosition)->transfer(fl.findCell(player.getPosn()));
                         successfulCommand = true; /// WE NEED TO CHECK FOR OCCTYPE OR ELSE IT WILL BE WRONG!
-                        if (fl.findCell(player.getPosn())->isStairs()) {floorComplete = true;}
+                        if (fl.findCell(player.getPosn())->isStairs()) {break;}
 
                     }
                 }
@@ -108,6 +110,27 @@ void Game::start_game(string filename){
             }
 	    if (*player.get_hp() == 0) break;
             level++;
+        }
+        if (level == 6) {
+            int gold = *player.get_gold();
+            cout << "//~~~====================================~~~\\\\\n";
+            cout << "||                                          ||\n";
+            cout << "||       Y  O  U              W  I  N       ||\n";
+            cout << "||                                          ||\n";
+            cout << "||         F I N A L      S C O R E         ||\n";
+            cout << "||                                          ||\n";
+            cout << "||                 {  ";
+            if (race == "d") {
+                if (gold < 5) {cout << 0;}
+                cout << gold * 2;
+            } else {
+                if (gold < 10) {cout << 0;}
+                if (race == "o") {cout << gold / 2;}
+                else {cout << gold;}
+            }               
+            cout << "  }                 ||\n";
+            cout << "||                                          ||\n";
+            cout << "\\\\~~~====================================~~~//\n\n\n";
         }
     }
 }
